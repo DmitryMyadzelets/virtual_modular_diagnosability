@@ -1,4 +1,6 @@
-virtual_modular_diagnosability
+Virtual Modular Diagnosability
 ==============================
 
-Draft
+A draft of some theoretical investigations. 
+
+No public interest assumed.   
