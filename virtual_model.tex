@@ -504,7 +504,7 @@ if the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
-	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -523,7 +523,7 @@ and modular diagnosability are not comparable but they have a different setup
 for the problem.}, i.e.
 $$
 \begin{array}{l}
-	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -681,7 +681,7 @@ if the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
-	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -714,45 +714,73 @@ if the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
-	\left[ M(P_i^{-1}(s)) \cap M_i(s) = \emptyset \right].
+	\left[ M(L_1 \parallel L_2) \cap M_i(s) = \emptyset \right].
 \end{array}
 \end{equation}
 
-\begin{lemma}[Condition for observation changing]
+\begin{lemma}
 \label{lem_changed_observation}
 Given two languages $L_1$ and $L_2$. A string $s \in L_{i \in \{1,2\}}$ changes
 its observation in the language $L_1 \parallel L_2$ if and only if:
 \end{lemma}
 \begin{equation}
 \begin{array}{l}
-	(\forall j \in \{1,2\}, j \neq i)
+	(\forall s' \in P_i^{-1}(s))
+	(\exists \sigma \in s' \mid \sigma \in \Sigma_i \cap \Sigma_j) \land
 	\\
-	(\forall t\sigma \in L_j 
-	\mid \sigma \in s, \sigma \in \Sigma_i \cap \Sigma_j) 
+	(\forall t\sigma \in \overline{s'})
+	\left[M_{I\backslash i}(t) \neq \emptyset \right],
 	\\
-	\left[ M_j(t) \backslash \{\epsilon\} \neq \emptyset \right], \textrm{where } 
-	\\
-	M_j: \Sigma^* \rightarrow (\Sigma_{j,o} \backslash \Sigma_i)^*.
+	\textrm{where } M_{I\backslash i}: \Sigma^* \rightarrow (\Sigma_{o} \backslash
+	\Sigma_i)^*.
+% 	\\
+% 	(\forall j \in \{1,2\}, j \neq i)
+% 	\\
+% 	(\forall t\sigma \in L_j 
+% 	\mid \sigma \in s, \sigma \in \Sigma_i \cap \Sigma_j) 
+% 	\\
+% 	\left[ M_j(t) \backslash \{\epsilon\} \neq \emptyset \right], \textrm{where } 
+% 	\\
+% 	M_j: \Sigma^* \rightarrow (\Sigma_{j,o} \backslash \Sigma_i)^*.
 \end{array}
 \end{equation}
-\begin{proof} 
-$$
-\begin{array}{l}
-\textrm{Sufficiency, by induction:}\\
-\exists t\sigma \in L_j \mid M_j(t) \neq \emptyset 
-\Rightarrow \\
-(\forall t'\sigma \in P_j^{-1}(t\sigma))(M_j(t'\sigma) \neq \emptyset)
-\Rightarrow \\
-(\forall s' \in P_i^{-1}(s) \mid s' \in P_j^{-1}(t\sigma))(M_j(s')\neq
-	\emptyset).
-\\\\
-\textrm{Necessity, by contradiction:}\\
-\textrm{Let } \exists t\sigma \in L_j \mid M_j(t) = \emptyset \Rightarrow \\
-\textrm{may } \exists s' \in P_j^{-1}(t\sigma) \cap P_i^{-1}(s\sigma) \\
-\textrm{s.t. } M_j(P_i(s')) = M_i(s') \\
-\textrm{which contradicts the definition.}  
-\end{array}
-$$ 
+\begin{proof}
+In order to prove sufficiency we use converse relation and prove by
+contradiction that the change of observation is necessary.
+Assume $\exists w' \in L_1 \parallel L_2$ and $\exists w \in L_i$ such that
+$M_i(w')= M_i(w)$.
+However, if $\exists \sigma \in w' \mid \sigma \in \Sigma_i \cap \Sigma_j$, then
+$(\forall t\sigma \in \overline{w'}) \left[M_{I\backslash i}(t) =
+\emptyset\right]$ which contradicts. 
+If $M_{I\backslash i}(t) \neq \emptyset$, then $w' \not \in \sigma$ wich is
+alse false.
+
+We prove necessity in a similar manner.
+Let $\exists t\in \overline{s'} \in P_i^{-1}(s)$ such that $M_{I\backslash i}(t)
+= \emptyset$. Then may $\exists w \in \overline{s}$ such that $M_{I\backslash
+i}(w) = \emptyset$ and $M_i(w) \neq \emptyset$, which contradicts. If $\not
+\exists \sigma \in \Sigma_i \cap \Sigma_j \mid \sigma \in s' \in P_i^{-1}(s)$,
+then may $\exists t \in \overline{w} \mid w \in L_1 \parallel L_2$ such that
+$M_{I\backslash i}(t) \neq \emptyset$. It implies that $M_{I\backslash
+i}(w) \neq \emptyset$ wich is false.
+
+% $$
+% \begin{array}{l}
+% \textrm{Sufficiency, by induction:}\\
+% \exists t\sigma \in L_j \mid M_j(t) \neq \emptyset 
+% \Rightarrow \\
+% (\forall t'\sigma \in P_j^{-1}(t\sigma))(M_j(t'\sigma) \neq \emptyset)
+% \Rightarrow \\
+% (\forall s' \in P_i^{-1}(s) \mid s' \in P_j^{-1}(t\sigma))(M_j(s')\neq
+% 	\emptyset).
+% \\\\
+% \textrm{Necessity, by contradiction:}\\
+% \textrm{Let } \exists t\sigma \in L_j \mid M_j(t) = \emptyset \Rightarrow \\
+% \textrm{may } \exists s' \in P_j^{-1}(t\sigma) \cap P_i^{-1}(s\sigma) \\
+% \textrm{s.t. } M_j(P_i(s')) = M_i(s') \\
+% \textrm{which contradicts the definition.}  
+% \end{array}
+% $$ 
 \end{proof}
 
 \newpage
