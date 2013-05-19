@@ -1,0 +1,31 @@
+\begin{tikzpicture}[scale=.8]
+\draw [thick] [->](2,1)--(2,8);
+\draw [thick] [->](2,2)--(3,3);
+\draw [thick] [->](2,5)--(3,6);
+% Events
+\draw [fill] (2,4) circle [radius=0.1];
+\node [left] at (1.8,4) {$1$};
+\draw [fill] (2,7) circle [radius=0.1];
+\node [left] at (1.8,7) {$>1$};
+% Braces
+\draw [decorate,decoration={brace,amplitude=10pt}]
+ 	(1,1)--(1,8) node [midway,xshift=-0.6cm] {\footnotesize $\overline{L_s}$};
+\draw [decorate,decoration={brace,amplitude=6pt}]
+ 	(4,8)--(4,7) node [midway,xshift=0.6cm] {\footnotesize $L^{>1}_s$};
+\draw [decorate,decoration={brace,amplitude=6pt}]
+ 	(4,7)--(4,4) node [midway,xshift=0.6cm] {\footnotesize $L^{1}_s$};
+\draw [decorate,decoration={brace,amplitude=9pt}]
+ 	(5,8)--(5,4) node [midway,xshift=0.6cm] {\footnotesize $L_s$};
+\draw [decorate,decoration={brace,amplitude=6pt}]
+ 	(4,3)--(4,2) node [midway,xshift=0.6cm] {\footnotesize $L \backslash
+ 	\overline{L_s}$};
+\draw [decorate,decoration={brace,amplitude=9pt}]
+ 	(5,4)--(5,1) node [midway,xshift=0.8cm] {\footnotesize $L \backslash L_s$};
+%Dashed lines
+\draw [dotted] (1,8)--(5,8);
+\draw [dotted] (2,7)--(4,7);
+\draw [dotted] (2,4)--(5,4);
+\draw [dotted] (3,3)--(4,3);
+\draw [dotted] (2,2)--(4,2);
+\draw [dotted] (1,1)--(5,1);
+\end{tikzpicture}
