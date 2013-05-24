@@ -1,8 +1,7 @@
 % %This is a very basic article template.
 % %There is just one section and two subsections.
 % \documentclass[a4paper,oneside]{article}
-\documentclass[a4paper, 10pt, conference]{ieeeconf}
-\IEEEoverridecommandlockouts
+\documentclass[a4paper, 10pt, conference]{ieeeconf} \IEEEoverridecommandlockouts
  % This command is only
   % needed if you want
   % to use the \thanks
@@ -16,7 +15,7 @@ Systems}, pdfauthor={Dmitry Myadzelets}, bookmarks=false,
 % colorlinks=true, linkcolor=black
 ]{hyperref}
 
-\usepackage{amsfonts, amssymb, amsmath} 
+\usepackage{amsfonts}
 \usepackage{graphicx}
 \usepackage{epstopdf}
 \usepackage{tikz}
@@ -324,9 +323,7 @@ system is thus defined by the parallel composition of its local languages: $L =
 \parallel_{i \in I} L_i$.
 The $P_i : \Sigma^* \rightarrow \Sigma_i^*$ denotes the natural projection from
 the global set of strings to the local, and $P_i^{-1} : \Sigma_i^* \rightarrow
-2^{\Sigma^*}$ is the inverse projection. For the simplicity of notation, we
-assume in the following that $P_i(L) = \{s\mid s\in L_i\}$ and $P_i^{-1}(L_i) =
-\{s' \mid s' \in L\}$.
+2^{\Sigma^*}$ is the inverse projection.
 
 
 % \subsection{Synchronized (coupled) languages}
@@ -507,7 +504,7 @@ if the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
-	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -524,9 +521,9 @@ that the local diagnosability implies the modular diagnosability \footnote{In
 \cite{zhou_decentralized_2008} the authors show that the local diagnosability
 and modular diagnosability are not comparable but they have a different setup
 for the problem.}, i.e.
-\begin{equation}
+$$
 \begin{array}{l}
-	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -535,7 +532,7 @@ for the problem.}, i.e.
 	\Rightarrow \\ 
 	\left[ M_i(P_i^{-1}(st)) \cap M_i(P_i^{-1}(L_{i,nf})) = \emptyset \right].
 \end{array}
-\end{equation}
+$$
 
 % In the above the infinite length of the string $s$ is equal to the statement
 % that the string $s$ forms a cycle. This definition is more weak then one
@@ -684,7 +681,7 @@ if the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
-	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -705,7 +702,7 @@ The intuition behind the above property is that having a module which does
 not satisfy the property of modular diagnosability then we can consider a
 temporal order of observations from several modules in hope that knowledge
 can help us to diagnose the fault. The number of possible partitions
-$J$ is exponential with respect to the cardinality of $I$. However, not
+$J$ for is exponential with respect to the cardinality of $I$. However, not
 each module can help to improve diagnosability. Thus, we need to find conditions
 of inclusion a module into the virtual module.
 
@@ -716,154 +713,60 @@ L_2$ if there is no the same observation in $P_i^{-1}(s)$, i.e.
 if the following holds true:
 \end{definition}
 \begin{equation}
-\label{def:obs}
 \begin{array}{l}
-	\left[ M(L_1 \parallel L_2) \cap M_i(s) = \emptyset \right].
+	\left[ M(P_i^{-1}(s)) \cap M_i(s) = \emptyset \right].
 \end{array}
 \end{equation}
 
-\begin{lemma}
+\begin{lemma}[Condition for observation changing]
 \label{lem_changed_observation}
-Given two languages $L_1$ and $L_2$, and a string $s \in L_{i \in \{1,2\}}$.
-Assume the string is not blocked by the composition, i.e. $s \in P_i(L_1
-\parallel L_2)$. The string $s$ changes its observation in the language $L_1
-\parallel L_2$ if and only if:
-\begin{subequations}\label{lem:obs}
-\begin{align}
-	(\exists \sigma \in s \mid \sigma \in \Sigma_i \cap \Sigma_j, j \neq i)
-	\label{lem:obs1}
-	\\
-	(\forall t\sigma \in \overline{L_j})
-	\left[M_{I\backslash i}(t) \neq \emptyset \right],
-	\label{lem:obs2}
-% 	\\
-% 	(\forall j \in \{1,2\}, j \neq i)
-% 	\\
-% 	(\forall t\sigma \in L_j 
-% 	\mid \sigma \in s, \sigma \in \Sigma_i \cap \Sigma_j) 
-% 	\\
-% 	\left[ M_j(t) \backslash \{\epsilon\} \neq \emptyset \right], \textrm{where } 
-% 	\\
-% 	M_j: \Sigma^* \rightarrow (\Sigma_{j,o} \backslash \Sigma_i)^*.
-\end{align}
-\end{subequations}
-$$
-	\textrm{where } M_{I\backslash i}: \Sigma^* \rightarrow (\Sigma_{o} \backslash
-	\Sigma_i)^*.
-	\\[1em]
-$$
+Given two languages $L_1$ and $L_2$. A string $s \in L_{i \in \{1,2\}}$ changes
+its observation in the language $L_1 \parallel L_2$ if and only if:
 \end{lemma}
-
-\begin{proof}
-In order to prove sufficiency of (\ref{lem:obs}) we use its converse relation
-and prove by contradiction that the change of observation (\ref{def:obs}) is
-necessary.
-Assume $\exists s' \in L_1 \parallel L_2$ and $\exists s \in L_i$ such that
-$M(s')= M_i(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
-\sigma \in \Sigma_i \cap \Sigma_j$ such that $\sigma \in s'$ and also
-(\ref{lem:obs1}) holds. Then may $\exists t'\sigma \in \overline{s'}$ such that
-$M_{I\backslash i}(t') = \emptyset$, and then $M_{I\backslash i}(P_j(t')) =
-\emptyset$ which contradicts (\ref{lem:obs2}). Now, let (\ref{lem:obs2})
-be true for all $t\sigma \in \overline{P_j(s')}$. Then the assumption $M(s')=
-M_i(s)$ holds only if $\sigma \not \in s$, which contradicts (\ref{lem:obs1}). 
-
-We prove necessity of (\ref{lem:obs}) by contradiction.
-Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in \overline{L_j}$ such that
-$M_{I\backslash i}(t) = \emptyset$. Then may $\exists t'\sigma \in 
-L_1 \parallel L_2 \subseteq P_j^{-1}(t\sigma)$ such that $M_{I\backslash i}(t') =
-\emptyset$ and $M_i(t') = M_i(s) \neq \emptyset$, which contradicts (\ref{def:obs}).
-Now, let (\ref{lem:obs2}) holds and $\not \exists \sigma \in s' \in P_i^{-1}(s)
-\mid \sigma \in \Sigma_i \cap \Sigma_j$. Then may $\exists w \in L_j$ and,
-hance, $w' \in L_1 \parallel L_2 \subseteq P_j^{-1}(w)$ such that $M(w')=M(s)$,
-wich contradicts (\ref{def:obs}).
-% $$
-% \begin{array}{l}
-% \textrm{Sufficiency, by induction:}\\
-% \exists t\sigma \in L_j \mid M_j(t) \neq \emptyset 
-% \Rightarrow \\
-% (\forall t'\sigma \in P_j^{-1}(t\sigma))(M_j(t'\sigma) \neq \emptyset)
-% \Rightarrow \\
-% (\forall s' \in P_i^{-1}(s) \mid s' \in P_j^{-1}(t\sigma))(M_j(s')\neq
-% 	\emptyset).
-% \\\\
-% \textrm{Necessity, by contradiction:}\\
-% \textrm{Let } \exists t\sigma \in L_j \mid M_j(t) = \emptyset \Rightarrow \\
-% \textrm{may } \exists s' \in P_j^{-1}(t\sigma) \cap P_i^{-1}(s\sigma) \\
-% \textrm{s.t. } M_j(P_i(s')) = M_i(s') \\
-% \textrm{which contradicts the definition.}  
-% \end{array}
-% $$ 
-\end{proof}
-
-We call the set of stings $t \in \overline{L_j}$ satisfying condition
-(\ref{lem:obs2}) as an \emph{adjacent observable support} for the given
-string $s \in L_i$.
-
-\begin{definition} Given two languages $L_1$ and $L_2$. We say that a string $s
-\in L_{i \in \{1,2\}}$ is distinguished from all the other local strings
-$L_i\backslash s$ in the language $L_1 \parallel L_2$ if the following holds
-true:
-\end{definition}
 \begin{equation}
-\label{def:dist}
 \begin{array}{l}
-	(\forall w \in L_i\backslash s)
-	\left[M(w \parallel L_j) \cap M(s\parallel L_j) = \emptyset\right].
+	(\forall j \in \{1,2\}, j \neq i)
+	\\
+	(\forall t\sigma \in L_j 
+	\mid \sigma \in s, \sigma \in \Sigma_i \cap \Sigma_j) 
+	\\
+	\left[ M_j(t) \backslash \{\epsilon\} \neq \emptyset \right], \textrm{where } 
+	\\
+	M_j: \Sigma^* \rightarrow (\Sigma_{j,o} \backslash \Sigma_i)^*.
 \end{array}
 \end{equation}
-
-\begin{lemma}
-\label{lem_distinguished}
-Given two languages $L_1$ and $L_2$. Assume no strings are blocked by the
-composition, i.e. $L_i = P_i(L_1 \parallel L_2)$. The string $s \in L_{i \in
-\{1,2\}}$ is distinguished from $L_i\backslash s$ in the language $L_1 \parallel
-L_2$ if $s$ has an adjacent observable support $L_{j,s} \subseteq L_j$ wich
-satisfies the following condition:
-\end{lemma}
-\begin{subequations}
-\begin{align}
-	(\forall t \in L_{j,s})
-	(\exists \sigma \in t \mid \sigma \in \Sigma_i \cap \Sigma_j, j \neq i)
-	\label{lem:dist1}
-	\\
-	(\forall w \in L_i\backslash s)(\sigma \not \in w)
-	\label{lem:dist2}
-	\\
-	(\forall t'\sigma \in \overline{t})
-	[M_{I\backslash i}(t\backslash t'\sigma) \neq \emptyset]
-	\label{lem:dist3}
-\end{align}
-\end{subequations}
-
-\begin{proof}
-Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_i^{-1}(w)$ and $\exists
-s' \in P_i^{-1}(s)$ such that $M(w') = M(s')$. Assume (\ref{lem:dist1}) and
-(\ref{lem:dist2}) hold. Then may $\exists t' \in \overline{s'} \mid t' \in
-P_j^{-1}(L_{j,s})$ such that $M(t') = M(w')$, and $t = P_j(t')$ such that
-$M_{I\backslash i}(t) = M_{I\backslash i}(w)$. And may $\exists t'' \in
-\overline{t}$ such that $M_{I\backslash i}(t'') = M_{I\backslash i}(w)$.  Since
-$\sigma \in t$ and $\sigma \not \in w$, then for any $t''\sigma \in
-\overline{t}$ $M(t \backslash t''\sigma) = \emptyset$ which contradicts
-\ref{lem:dist3}.
-
-The proof continues to state sufficiency of (\ref{lem:dist2}) and
-(\ref{lem:dist3}).
+\begin{proof} 
+$$
+\begin{array}{l}
+\textrm{Sufficiency, by induction:}\\
+\exists t\sigma \in L_j \mid M_j(t) \neq \emptyset 
+\Rightarrow \\
+(\forall t'\sigma \in P_j^{-1}(t\sigma))(M_j(t'\sigma) \neq \emptyset)
+\Rightarrow \\
+(\forall s' \in P_i^{-1}(s) \mid s' \in P_j^{-1}(t\sigma))(M_j(s')\neq
+	\emptyset).
+\\\\
+\textrm{Necessity, by contradiction:}\\
+\textrm{Let } \exists t\sigma \in L_j \mid M_j(t) = \emptyset \Rightarrow \\
+\textrm{may } \exists s' \in P_j^{-1}(t\sigma) \cap P_i^{-1}(s\sigma) \\
+\textrm{s.t. } M_j(P_i(s')) = M_i(s') \\
+\textrm{which contradicts the definition.}  
+\end{array}
+$$ 
 \end{proof}
 
 \newpage
-.
-\newpage
-
 \subsection{}
 \begin{enumerate}
   \item Do not consider non-compositional analysis first;
   \item Global consistency = local observations after the parallel
   composition, $\{ P_{I,i}(\parallel_{j \in I}M_i)\}$;
          
-\end{enumerate} 
+\end{enumerate}
 
-Our heuristic is that we can tune the order the components are composed to lower
-the computational expenses. During an iterative process of the composition the
+Our heuristic is
+that we can tune the order the components are composed to lower the
+computational expenses. During an iterative process of the composition the
 following questions should be answered:
 \begin{enumerate}
   \item Is there a way to analyse the system with respect to diagnosability with
