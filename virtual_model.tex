@@ -322,11 +322,10 @@ of languages $\{L_{i \in I}\}$. We use the term \emph{local} in context
 of the automata and languages from these sets. The \emph{global} language of the
 system is thus defined by the parallel composition of its local languages: $L =
 \parallel_{i \in I} L_i$.
-The $P_i : \Sigma^* \rightarrow \Sigma_i^*$ denotes the natural projection from
-the global set of strings to the local, and $P_i^{-1} : \Sigma_i^* \rightarrow
-2^{\Sigma^*}$ is the inverse projection. For the simplicity of notation, we
-assume in the following that $P_i(L) = \{s\mid s\in L_i\}$ and $P_i^{-1}(L_i) =
-\{s' \mid s' \in L\}$.
+The natural projection is commonly defined over Kleene closuer on event sets.
+We restrict it, for the simplicity of notation, to the system's languages as
+following: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i})
+= \{s' \mid s' \in L\}, ~i \in I$.
 
 
 % \subsection{Synchronized (coupled) languages}
