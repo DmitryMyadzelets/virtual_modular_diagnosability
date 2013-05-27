@@ -709,31 +709,31 @@ each module can help to improve diagnosability. Thus, we need to find conditions
 of inclusion a module into the virtual module.
 
 Firstly, we define a general case of changing the observation of a string.
-\begin{definition}Given two languages $L_1$ and $L_2$. A string $s \in L_{i \in
-\{1,2\}}$ \emph{changes its observation} $M_i(s)$ in the language $L_1 \parallel
-L_2$ if there is no the same observation in $P_i^{-1}(s)$, i.e.
+\begin{definition}Given two languages $L_1$ and $L_2$. A string $s \in L_1$
+\emph{changes its observation} $M_1(s)$ in the language $L$ if
+there is no the same observation in $P_1^{-1}(s)$, i.e.
 if the following holds true:
 \end{definition}
 \begin{equation}
 \label{def:obs}
 \begin{array}{l}
-	\left[ M(L_1 \parallel L_2) \cap M_i(s) = \emptyset \right].
+	\left[ M(L) \cap M_1(s) = \emptyset \right].
 \end{array}
 \end{equation}
 
 \begin{lemma}
 \label{lem_changed_observation}
-Given two languages $L_1$ and $L_2$, and a string $s \in L_{i \in \{1,2\}}$.
-Assume the string is not blocked by the composition, i.e. $s \in P_i(L_1
-\parallel L_2)$. The string $s$ changes its observation in the language $L_1
-\parallel L_2$ if and only if:
+Given two languages $L_1$ and $L_2$, and a string $s \in L_1$.
+Assume the string is not blocked by the composition, i.e. $s \in P_1(L)$. The
+string $s$ changes its observation in the language $L$ if and
+only if:
 \begin{subequations}\label{lem:obs}
 \begin{align}
-	(\exists \sigma \in s \mid \sigma \in \Sigma_i \cap \Sigma_j, j \neq i)
+	(\exists \sigma \in s \mid \sigma \in \Sigma_1 \cap \Sigma_2)
 	\label{lem:obs1}
 	\\
 	(\forall t\sigma \in \overline{L_j})
-	\left[M_{I\backslash i}(t) \neq \emptyset \right],
+	\left[M_{\backslash 1}(t) \neq \emptyset \right],
 	\label{lem:obs2}
 % 	\\
 % 	(\forall j \in \{1,2\}, j \neq i)
@@ -747,8 +747,8 @@ Assume the string is not blocked by the composition, i.e. $s \in P_i(L_1
 \end{align}
 \end{subequations}
 $$
-	\textrm{where } M_{I\backslash i}: \Sigma^* \rightarrow (\Sigma_{o} \backslash
-	\Sigma_i)^*.
+	\textrm{where } M_{\backslash 1}: \Sigma^* \rightarrow (\Sigma_{o} \backslash
+	\Sigma_1)^*.
 	\\[1em]
 $$
 \end{lemma}
@@ -757,23 +757,24 @@ $$
 In order to prove sufficiency of (\ref{lem:obs}) we use its converse relation
 and prove by contradiction that the change of observation (\ref{def:obs}) is
 necessary.
-Assume $\exists s' \in L_1 \parallel L_2$ and $\exists s \in L_i$ such that
-$M(s')= M_i(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
-\sigma \in \Sigma_i \cap \Sigma_j$ such that $\sigma \in s'$ and also
+Assume $\exists s' \in L$ and $\exists s \in L_1$ such that
+$M(s')= M_1(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
+\sigma \in \Sigma_1 \cap \Sigma_2$ such that $\sigma \in s'$ and also
 (\ref{lem:obs1}) holds. Then may $\exists t'\sigma \in \overline{s'}$ such that
-$M_{I\backslash i}(t') = \emptyset$, and then $M_{I\backslash i}(P_j(t')) =
+$M_{\backslash 1}(t') = \emptyset$, and then $M_{\backslash 1}(P_2(t')) =
 \emptyset$ which contradicts (\ref{lem:obs2}). Now, let (\ref{lem:obs2})
-be true for all $t\sigma \in \overline{P_j(s')}$. Then the assumption $M(s')=
-M_i(s)$ holds only if $\sigma \not \in s$, which contradicts (\ref{lem:obs1}). 
+be true for all $t\sigma \in \overline{P_2(s')}$. Then the assumption $M(s')=
+M_1(s)$ holds only if $\sigma \not \in s$, which contradicts (\ref{lem:obs1}). 
 
 We prove necessity of (\ref{lem:obs}) by contradiction.
-Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in \overline{L_j}$ such that
-$M_{I\backslash i}(t) = \emptyset$. Then may $\exists t'\sigma \in 
-L_1 \parallel L_2 \subseteq P_j^{-1}(t\sigma)$ such that $M_{I\backslash i}(t') =
-\emptyset$ and $M_i(t') = M_i(s) \neq \emptyset$, which contradicts (\ref{def:obs}).
-Now, let (\ref{lem:obs2}) holds and $\not \exists \sigma \in s' \in P_i^{-1}(s)
-\mid \sigma \in \Sigma_i \cap \Sigma_j$. Then may $\exists w \in L_j$ and,
-hance, $w' \in L_1 \parallel L_2 \subseteq P_j^{-1}(w)$ such that $M(w')=M(s)$,
+Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in \overline{L_2}$ such that
+$M_{\backslash 1}(t) = \emptyset$. Then may $\exists t'\sigma \in 
+L \subseteq P_2^{-1}(t\sigma)$ such that $M_{\backslash 1}(t') =
+\emptyset$ and $M_1(t') = M_1(s) \neq \emptyset$, which contradicts
+(\ref{def:obs}).
+Now, let (\ref{lem:obs2}) holds and $\not \exists \sigma \in s' \in P_1^{-1}(s)
+\mid \sigma \in \Sigma_1 \cap \Sigma_2$. Then may $\exists w \in L_2$ and,
+hance, $w' \in L \subseteq P_2^{-1}(w)$ such that $M(w')=M(s)$,
 wich contradicts (\ref{def:obs}).
 % $$
 % \begin{array}{l}
@@ -794,53 +795,51 @@ wich contradicts (\ref{def:obs}).
 % $$ 
 \end{proof}
 
-We call the set of stings $t \in \overline{L_j}$ satisfying condition
-(\ref{lem:obs2}) as an \emph{adjacent observable support} for the given
-string $s \in L_i$.
+We call the set of stings $t \in \overline{L_2}$ satisfying condition
+(\ref{lem:obs2}) as an \emph{adjacent observable support} for the given string
+$s \in L_1$.
 
 \begin{definition} Given two languages $L_1$ and $L_2$. We say that a string $s
-\in L_{i \in \{1,2\}}$ is distinguished from all the other local strings
-$L_i\backslash s$ in the language $L_1 \parallel L_2$ if the following holds
-true:
+\in L_{1}$ is distinguished from all the other local strings $L_1\backslash s$
+in the language $L$ if the following holds true:
 \end{definition}
 \begin{equation}
 \label{def:dist}
 \begin{array}{l}
 	(\forall w \in L_i\backslash s)
-	\left[M(w \parallel L_j) \cap M(s\parallel L_j) = \emptyset\right].
+	\left[M(w \parallel L_2) \cap M(s\parallel L_2) = \emptyset\right].
 \end{array}
 \end{equation}
 
 \begin{lemma}
 \label{lem_distinguished}
 Given two languages $L_1$ and $L_2$. Assume no strings are blocked by the
-composition, i.e. $L_i = P_i(L_1 \parallel L_2)$. The string $s \in L_{i \in
-\{1,2\}}$ is distinguished from $L_i\backslash s$ in the language $L_1 \parallel
-L_2$ if $s$ has an adjacent observable support $L_{j,s} \subseteq L_j$ wich
-satisfies the following condition:
+composition, i.e. $L_1 = P_1(L)$. The string $s \in L_1$ is distinguished from
+$L_1\backslash s$ in the language $L$ if $s$ has an adjacent observable support
+$L_{2,s} \subseteq L_2$ wich satisfies the following condition:
 \end{lemma}
 \begin{subequations}
 \begin{align}
-	(\forall t \in L_{j,s})
-	(\exists \sigma \in t \mid \sigma \in \Sigma_i \cap \Sigma_j, j \neq i)
+	(\forall t \in L_{2,s})
+	(\exists \sigma \in t \mid \sigma \in \Sigma_1 \cap \Sigma_2)
 	\label{lem:dist1}
 	\\
-	(\forall w \in L_i\backslash s)(\sigma \not \in w)
+	(\forall w \in L_1\backslash s)(\sigma \not \in w)
 	\label{lem:dist2}
 	\\
 	(\forall t'\sigma \in \overline{t})
-	[M_{I\backslash i}(t\backslash t'\sigma) \neq \emptyset]
+	[M_{\backslash 1}(t\backslash t'\sigma) \neq \emptyset]
 	\label{lem:dist3}
 \end{align}
 \end{subequations}
 
 \begin{proof}
-Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_i^{-1}(w)$ and $\exists
-s' \in P_i^{-1}(s)$ such that $M(w') = M(s')$. Assume (\ref{lem:dist1}) and
+Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_1^{-1}(w)$ and $\exists
+s' \in P_1^{-1}(s)$ such that $M(w') = M(s')$. Assume (\ref{lem:dist1}) and
 (\ref{lem:dist2}) hold. Then may $\exists t' \in \overline{s'} \mid t' \in
-P_j^{-1}(L_{j,s})$ such that $M(t') = M(w')$, and $t = P_j(t')$ such that
-$M_{I\backslash i}(t) = M_{I\backslash i}(w)$. And may $\exists t'' \in
-\overline{t}$ such that $M_{I\backslash i}(t'') = M_{I\backslash i}(w)$.  Since
+P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t = P_2(t')$ such that
+$M_{\backslash 1}(t) = M_{\backslash 1}(w)$. And may $\exists t'' \in
+\overline{t}$ such that $M_{\backslash 1}(t'') = M_{\backslash 1}(w)$.  Since
 $\sigma \in t$ and $\sigma \not \in w$, then for any $t''\sigma \in
 \overline{t}$ $M(t \backslash t''\sigma) = \emptyset$ which contradicts
 \ref{lem:dist3}.
