@@ -708,6 +708,12 @@ $J$ is exponential with respect to the cardinality of $I$. However, not
 each module can help to improve diagnosability. Thus, we need to find conditions
 of inclusion a module into the virtual module.
 
+In the sequel, for the sake of simplicity, we suppose that the system consist
+only of two modules with correspondent languages $L_1$ and $L_2$, i.e. the
+language of the system is $L = L_1 \parallel L_2$. Suppose that only one module
+has a faulty behaviour, i.e $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$. Suppose that
+$L_1$ is not locally diagnosable, but $L$ is diagnosable.
+
 Firstly, we define a general case of changing the observation of a string.
 \begin{definition}Given two languages $L_1$ and $L_2$. A string $s \in L_1$
 \emph{changes its observation} $M_1(s)$ in the language $L$ if
@@ -733,7 +739,7 @@ only if:
 	\label{lem:obs1}
 	\\
 	(\forall t\sigma \in \overline{L_j})
-	\left[M_{\backslash 1}(t) \neq \emptyset \right],
+	\left[M'_2(t) \neq \emptyset \right],
 	\label{lem:obs2}
 % 	\\
 % 	(\forall j \in \{1,2\}, j \neq i)
@@ -747,7 +753,7 @@ only if:
 \end{align}
 \end{subequations}
 $$
-	\textrm{where } M_{\backslash 1}: \Sigma^* \rightarrow (\Sigma_{o} \backslash
+	\textrm{where } M'_2: \Sigma^* \rightarrow (\Sigma_{2,o} \backslash
 	\Sigma_1)^*.
 	\\[1em]
 $$
@@ -761,15 +767,15 @@ Assume $\exists s' \in L$ and $\exists s \in L_1$ such that
 $M(s')= M_1(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
 \sigma \in \Sigma_1 \cap \Sigma_2$ such that $\sigma \in s'$ and also
 (\ref{lem:obs1}) holds. Then may $\exists t'\sigma \in \overline{s'}$ such that
-$M_{\backslash 1}(t') = \emptyset$, and then $M_{\backslash 1}(P_2(t')) =
+$M'_2(t') = \emptyset$, and then $M'_2(P_2(t')) =
 \emptyset$ which contradicts (\ref{lem:obs2}). Now, let (\ref{lem:obs2})
 be true for all $t\sigma \in \overline{P_2(s')}$. Then the assumption $M(s')=
 M_1(s)$ holds only if $\sigma \not \in s$, which contradicts (\ref{lem:obs1}). 
 
 We prove necessity of (\ref{lem:obs}) by contradiction.
 Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in \overline{L_2}$ such that
-$M_{\backslash 1}(t) = \emptyset$. Then may $\exists t'\sigma \in 
-L \subseteq P_2^{-1}(t\sigma)$ such that $M_{\backslash 1}(t') =
+$M'_2(t) = \emptyset$. Then may $\exists t'\sigma \in 
+L \subseteq P_2^{-1}(t\sigma)$ such that $M'_2(t') =
 \emptyset$ and $M_1(t') = M_1(s) \neq \emptyset$, which contradicts
 (\ref{def:obs}).
 Now, let (\ref{lem:obs2}) holds and $\not \exists \sigma \in s' \in P_1^{-1}(s)
@@ -828,7 +834,7 @@ $L_{2,s} \subseteq L_2$ wich satisfies the following condition:
 	\label{lem:dist2}
 	\\
 	(\forall t'\sigma \in \overline{t})
-	[M_{\backslash 1}(t\backslash t'\sigma) \neq \emptyset]
+	[M'_2(t\backslash t'\sigma) \neq \emptyset]
 	\label{lem:dist3}
 \end{align}
 \end{subequations}
@@ -838,8 +844,8 @@ Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_1^{-1}(w)$ and $\exists
 s' \in P_1^{-1}(s)$ such that $M(w') = M(s')$. Assume (\ref{lem:dist1}) and
 (\ref{lem:dist2}) hold. Then may $\exists t' \in \overline{s'} \mid t' \in
 P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t = P_2(t')$ such that
-$M_{\backslash 1}(t) = M_{\backslash 1}(w)$. And may $\exists t'' \in
-\overline{t}$ such that $M_{\backslash 1}(t'') = M_{\backslash 1}(w)$.  Since
+$M'_2(t) = M'_2(w)$. And may $\exists t'' \in
+\overline{t}$ such that $M'_2(t'') = M'_2(w)$.  Since
 $\sigma \in t$ and $\sigma \not \in w$, then for any $t''\sigma \in
 \overline{t}$ $M(t \backslash t''\sigma) = \emptyset$ which contradicts
 \ref{lem:dist3}.
