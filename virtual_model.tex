@@ -226,13 +226,12 @@ directions for further research.
 \label{sec:Preliminaries}
 The notation used in this document is adopted from
 \cite{cassandras_introduction_2010}.
-
 Let $\Sigma$ be a finite set of events. A sequence of events is a string.
-$\Sigma^*$ denotes a set of finite strings over $\Sigma$. $L\subseteq\Sigma^*$
-is a language over $\Sigma$. Given strings $s$ and $t$, $st$ is their
-concatenation. Given strings $s$ and $s'$, $s'$ is a prefix of $s$ if exists $t$
-such that $s't = s$. Prefix closer of $L$, denoted by $\overline{L}$ is a set of
-all prefixes of all strings in $L$.
+$\Sigma^*$ denotes a set of all finite strings over $\Sigma$.
+$L\subseteq\Sigma^*$ is a language over $\Sigma$. Given strings $s$ and $t$,
+$st$ is their concatenation. Given strings $s$ and $s'$, $s'$ is a prefix of $s$
+if exists $t$ such that $s't = s$. Prefix closer of $L$, denoted by
+$\overline{L}$ is a set of all prefixes of all strings in $L$.
 If $\overline{L} = L$ then $L$ is prefix-closed. The post language of $L$ after
 a string $s$ is denoted as $L/s$, i.e. $L/s = \{t\mid st \in L\}$. We write
 $\sigma \in s$ if the event $\sigma \in \Sigma$ appears in the string $s \in
@@ -324,8 +323,8 @@ system is thus defined by the parallel composition of its local languages: $L =
 \parallel_{i \in I} L_i$.
 The natural projection is commonly defined over Kleene closuer on event sets.
 We restrict it, for the simplicity of notation, to the system's languages as
-following: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i})
-= \{s' \mid s' \in L\}, ~i \in I$.
+follows: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i}) = \{s' \mid s' \in
+L\}, ~i \in I$.
 
 
 % \subsection{Synchronized (coupled) languages}
@@ -380,9 +379,9 @@ following: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i})
 \section{Diagnosability of a modular system}
 \label{sec:Diagnosability}
 %\subsection{Faulty and non-faulty languages}
-Diagnosability analysis uses a notion of the faulty language to describe a
+Diagnosability analysis uses a notion of a faulty language to describe the
 faulty behaviour of discrete-event system. This section discuses design issues
-relates to representations of the faulty language and focuses on the definition
+related to representations of the faulty language and focuses on a definition
 of modular diagnosability.
 
 The faulty behavior is usually modeled by introducing fault events or by faulty
@@ -421,7 +420,7 @@ approach. For this reason the definitions of diagnosability originally developed
 by their authors for the event-based approach are slightly modified with no loss
 of meaning. 
 
-For the sake of simplicity, in the following, we assume that there is only one
+For the sake of simplicity, in the following we assume that there is only one
 type of fault, and that the language of the system is live.
 
 % An example of automata reflecting the partitioning of a language is depicted in
@@ -446,7 +445,9 @@ type of fault, and that the language of the system is live.
 % states after which the language considered as faulty.  
 
 We define \emph{diagnosability of the fault} as follows:
-\begin{definition} The fault is diagnosable if there is no two strings
+\begin{definition} 
+\label{def:fault_is_diag}
+The fault is diagnosable if there is no two strings
 with the same observation such that one string is faulty and of arbitrary
 cardinality, and second one is non-faulty, i.e. if the following holds true:
 \end{definition}
@@ -482,7 +483,7 @@ the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
-	\forall(L_i \in \{L_{i \in \mathbb{N}}\}, s \in L_{i,f}, t \in L_{i,f}/s)
+	\forall(i \in I, s \in L_{i,f}, t \in L_{i,f}/s)
 	\\
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
@@ -535,6 +536,32 @@ for the problem.}, i.e.
 	\left[ M_i(P_i^{-1}(st)) \cap M_i(P_i^{-1}(L_{i,nf})) = \emptyset \right].
 \end{array}
 \end{equation}
+
+Recall the Definition \ref{def:fault_is_diag} of the diagnosable fault. If a
+module is not locally diagnosable then exist at least two strings in its
+language, one is faulty and one is not, with the same observation of arbitrary
+length, i.e. the strings are \emph{not distinguashable}. This
+indistinguishability can disappear if and only if:
+$a)$ at least one string is blocked by concurency with other module, and
+then the strings would be distinguashable locally - the verification of the
+modular diagnosability property is devoted to find if this is the case; 
+$b)$ indistinguishability is broken globally by interleaving sequences of
+the module's events with observable events of other modules. The later case
+is expressed in the following conjecture:
+\begin{conjecture} Given two modules with languages $L_1$ and $L_2$, and the
+global languge of the system $L = L_1 \parallel L_2$. Suppose there is only one
+faulty string $s \in L_1$ such that it is indistinguashable from at least one
+string of $L_1\backslash s$. Thus, $L_1$ is not locally diagnosable. Suppose the
+system is not modular diagnosable. Then the global language $L$ is diagnosable
+only if for all strings $t \in P_1^{-1}(s)$ the composition with language $L_2$
+changes their observations.
+\end{conjecture}
+
+The above conjecture gives the insight into the underlining idea of our
+approach. If we find a module which makes the faulty string distinguashable then
+then the composition of that module with a faulty one would result in a new
+module satisfying the property of modular diagnosability. In the following
+section we provide a formal description of the problem.
 
 % In the above the infinite length of the string $s$ is equal to the statement
 % that the string $s$ forms a cycle. This definition is more weak then one
@@ -666,7 +693,7 @@ for the problem.}, i.e.
 \section{Diagnosability of Virtual Modules}
 \label{sec:Proposal}
 
-Our goal is to have the system modularly diagnosable. If an initial modularity
+Our goal is to have the system modularly diagnosable. If the initial modularity
 does not satisfy the property of modular diagnosability we assume that the set
 of modules can be partitioned such that all the modules in each partition can be
 considered as a \emph{virtual module}, and then the new modularity satisfies the
@@ -700,19 +727,20 @@ If $\forall j \in J, L_{j} = \parallel L_{i \in j}$ then, by definition, $L =
 for the definition of modular diagnosability are eligible for the definition of
 the diagnosability by virtual modules.
 
-The intuition behind the above property is that having a module which does
-not satisfy the property of modular diagnosability then we can consider a
-temporal order of observations from several modules in hope that knowledge
-can help us to diagnose the fault. The number of possible partitions
-$J$ is exponential with respect to the cardinality of $I$. However, not
-each module can help to improve diagnosability. Thus, we need to find conditions
-of inclusion a module into the virtual module.
+In order to find a partition of system's modules satisfying the modular
+diagnosability property one may take a faulty module, enumerate all possible
+sets of other modules, compose them and check local diagnosability. Such process
+is computationally expencive, sinct the number of possible partitions $J$ is
+exponential with respect to the cardinality of $I$. However, not each module can
+change diagnosability. Thus, we need to find a procedure to check if a module
+can change diagnosability, without composition.
 
 In the sequel, for the sake of simplicity, we suppose that the system consist
-only of two modules with correspondent languages $L_1$ and $L_2$, i.e. the
+only of two modules with the correspondent languages $L_1$ and $L_2$, i.e. the
 language of the system is $L = L_1 \parallel L_2$. Suppose that only one module
-has a faulty behaviour, i.e $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$. Suppose that
-$L_1$ is not locally diagnosable, but $L$ is diagnosable.
+has a faulty behaviour, and, thus, the faulty and non-faulty languages can be
+defined, i.e $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
+Suppose that $L_1$ is not locally diagnosable, but $L$ is diagnosable.
 
 Firstly, we define a general case of changing the observation of a string.
 \begin{definition}Given two languages $L_1$ and $L_2$. A string $s \in L_1$
