@@ -729,22 +729,23 @@ the diagnosability by virtual modules.
 
 In order to find a partition of system's modules satisfying the modular
 diagnosability property one may take a faulty module, enumerate all possible
-sets of other modules, compose them and check local diagnosability. Such process
-is computationally expencive, sinct the number of possible partitions $J$ is
-exponential with respect to the cardinality of $I$. However, not each module can
-change diagnosability. Thus, we need to find a procedure to check if a module
-can change diagnosability, without composition.
+sets of other modules, compose all the languages from each set with the faulty
+language, and check the resulting language for modular diagnosability.
+Such process is computationally expensive, since the number of possible
+partitions $J$ is exponential with respect to the cardinality of $I$. However,
+not each module can change diagnosability. Thus, we need to find a procedure to
+check if an arbitrary module can change diagnosability, without composition.
 
 In the sequel, for the sake of simplicity, we suppose that the system consist
-only of two modules with the correspondent languages $L_1$ and $L_2$, i.e. the
+only of two modules, with the correspondent languages $L_1$ and $L_2$. The
 language of the system is $L = L_1 \parallel L_2$. Suppose that only one module
-has a faulty behaviour, and, thus, the faulty and non-faulty languages can be
-defined, i.e $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
+has a faulty behaviour, i.e $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
 Suppose that $L_1$ is not locally diagnosable, but $L$ is diagnosable.
 
-Firstly, we define a general case of changing the observation of a string.
-\begin{definition}Given two languages $L_1$ and $L_2$. A string $s \in L_1$
-\emph{changes its observation} $M_1(s)$ in the language $L$ if
+Firstly, we define the notion of observation changing of a string in a global
+language.
+\begin{definition}Given two languages $L_1$ and $L_2$. A string $s \in
+L_1$ \emph{changes its observation} $M_1(s)$ in the language $L$ if
 there is no the same observation in $P_1^{-1}(s)$, i.e.
 if the following holds true:
 \end{definition}
@@ -761,6 +762,7 @@ Given two languages $L_1$ and $L_2$, and a string $s \in L_1$.
 Assume the string is not blocked by the composition, i.e. $s \in P_1(L)$. The
 string $s$ changes its observation in the language $L$ if and
 only if:
+\end{lemma}
 \begin{subequations}\label{lem:obs}
 \begin{align}
 	(\exists \sigma \in s \mid \sigma \in \Sigma_1 \cap \Sigma_2)
@@ -769,6 +771,10 @@ only if:
 	(\forall t\sigma \in \overline{L_j})
 	\left[M'_2(t) \neq \emptyset \right],
 	\label{lem:obs2}
+	\\
+	\textrm{where } M'_2: \Sigma^* \rightarrow (\Sigma_{2,o} \backslash
+	\Sigma_1)^*. 
+	\label{lem:obs3}
 % 	\\
 % 	(\forall j \in \{1,2\}, j \neq i)
 % 	\\
@@ -780,12 +786,11 @@ only if:
 % 	M_j: \Sigma^* \rightarrow (\Sigma_{j,o} \backslash \Sigma_i)^*.
 \end{align}
 \end{subequations}
-$$
-	\textrm{where } M'_2: \Sigma^* \rightarrow (\Sigma_{2,o} \backslash
-	\Sigma_1)^*.
-	\\[1em]
-$$
-\end{lemma}
+% $$
+% 	\textrm{where } M'_2: \Sigma^* \rightarrow (\Sigma_{2,o} \backslash
+% 	\Sigma_1)^*.
+% 	\\[1em]
+% $$
 
 \begin{proof}
 In order to prove sufficiency of (\ref{lem:obs}) we use its converse relation
@@ -808,8 +813,8 @@ L \subseteq P_2^{-1}(t\sigma)$ such that $M'_2(t') =
 (\ref{def:obs}).
 Now, let (\ref{lem:obs2}) holds and $\not \exists \sigma \in s' \in P_1^{-1}(s)
 \mid \sigma \in \Sigma_1 \cap \Sigma_2$. Then may $\exists w \in L_2$ and,
-hance, $w' \in L \subseteq P_2^{-1}(w)$ such that $M(w')=M(s)$,
-wich contradicts (\ref{def:obs}).
+hence, $w' \in L \subseteq P_2^{-1}(w)$ such that $M(w')=M(s)$,
+which contradicts (\ref{def:obs}).
 % $$
 % \begin{array}{l}
 % \textrm{Sufficiency, by induction:}\\
@@ -828,6 +833,12 @@ wich contradicts (\ref{def:obs}).
 % \end{array}
 % $$ 
 \end{proof}
+
+Informally, the above lemma says that the string of the local language $L_1$
+changes its observation in the global language $L$ if and only if the string has
+an event in common with the language $L_2$, and all the strings of $L_2$ which
+have this common event have observable events in the prefixes, and some of the
+observable events in the prefixes are not common with $L_1$.
 
 We call the set of stings $t \in \overline{L_2}$ satisfying condition
 (\ref{lem:obs2}) as an \emph{adjacent observable support} for the given string
@@ -863,27 +874,39 @@ $L_{2,s} \subseteq L_2$ wich satisfies the following condition:
 	\\
 	(\forall t'\sigma \in \overline{t})
 	[M'_2(t\backslash t'\sigma) \neq \emptyset]
-	\label{lem:dist3}
+	\label{lem:dist3},
 \end{align}
 \end{subequations}
 
+where $M'_2$ is defined as in (\ref{lem:obs3}). 
+
 \begin{proof}
 Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_1^{-1}(w)$ and $\exists
-s' \in P_1^{-1}(s)$ such that $M(w') = M(s')$. Assume (\ref{lem:dist1}) and
-(\ref{lem:dist2}) hold. Then may $\exists t' \in \overline{s'} \mid t' \in
-P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t = P_2(t')$ such that
-$M'_2(t) = M'_2(w)$. And may $\exists t'' \in
-\overline{t}$ such that $M'_2(t'') = M'_2(w)$.  Since
-$\sigma \in t$ and $\sigma \not \in w$, then for any $t''\sigma \in
-\overline{t}$ $M(t \backslash t''\sigma) = \emptyset$ which contradicts
-\ref{lem:dist3}.
+s' \in P_1^{-1}(s)$ such that $M(w') = M(s')$. 
 
-The proof continues to state sufficiency of (\ref{lem:dist2}) and
-(\ref{lem:dist3}).
+Assume (\ref{lem:dist1}) and (\ref{lem:dist2}) hold. Then may $\exists t' \in
+\overline{s'} \mid t' \in P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t =
+P_2(t')$ such that $M'_2(t) = M'_2(w)$. And may $\exists t'' \in \overline{t}$
+such that $M'_2(t'') = M'_2(w)$. Since $\sigma \in t$ and $\sigma \not \in w$,
+then $M(t \backslash t''\sigma) = \emptyset$ for any $t''\sigma \in
+\overline{t}$, which contradicts (\ref{lem:dist3}).
+
+Assume (\ref{lem:dist1}) and (\ref{lem:dist3}) hold. Let $M_1(L_1) = \emptyset$
+and $M'_2(t\backslash t'\sigma) = M'_2(s) = M_2(s)$. Then $\forall s' \in
+M(P_1^{-1}(s))$ there exists $\sigma \in s'$, which contradicts
+(\ref{lem:dist2}).
+
+Assume (\ref{lem:dist2}) and (\ref{lem:dist3}) hold. If (\ref{def:dist}) is
+false, then (\ref{lem:dist1}) is false. However, (\ref{lem:dist3}) is suffucient
+for (\ref{lem:dist1}), which contradicts the former statement.
 \end{proof}
 
-\newpage
-.
+Informally, the above lemma implies blocking of the occurence of observable
+events from the observable support of $s$ in all the strings of the
+global language which are projected to $L_1\backslash s$. Then, whenever we
+observe these events we are sure they occure in the prefix of $s$.
+
+
 \newpage
 
 \subsection{}
