@@ -857,7 +857,7 @@ in the language $L$ if the following holds true:
 \end{equation}
 
 \begin{lemma}
-\label{lem_distinguished}
+\label{lem:distinguished}
 Given two languages $L_1$ and $L_2$. Assume no strings are blocked by the
 composition, i.e. $L_1 = P_1(L)$. The string $s \in L_1$ is distinguished from
 $L_1\backslash s$ in the language $L$ if $s$ has an adjacent observable support
@@ -906,6 +906,74 @@ events from the observable support of $s$ in all the strings of the
 global language which are projected to $L_1\backslash s$. Then, whenever we
 observe these events we are sure they occure in the prefix of $s$.
 
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+[->,>=stealth, node distance=30mm, auto, initial text=, shorten >=1pt,
+semithick, 
+every state/.style={fill=lightgray},
+every node/.style={scale=0.8}, 
+accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+]
+  \node[initial,state] (0)              {$0$};
+  \node[state]         (1) [right of=0] {$1$};
+  \node[state]         (2) [right of=1] {$2$};
+  \node[state, accepting]         (3) [right of=2] {$3$};
+
+  \path (0) edge [loop above] node {$\Sigma_2 \backslash (\Sigma_1 \cap \Sigma_2)$} (0)
+  		(0) edge              node {$\Sigma_1 \cap \Sigma_2$} (1)
+  		(1) edge [loop above] node {$\Sigma_2 \backslash (\Sigma_{2,o} \backslash \Sigma_1)$} (1)
+        (1) edge              node {$\Sigma_{2,o} \backslash \Sigma_1$} (2)
+  		(2) edge [loop above] node {$\Sigma_2 \backslash (\Sigma_1 \cap \Sigma_2)$} (2)
+        (2) edge              node {$\Sigma_1 \cap \Sigma_2$} (3)
+		(3) edge [loop above] node {$\Sigma_2$} (3)
+        (2) edge [bend left]  node {$\Sigma_1 \cap \Sigma_2$} (1)
+        ;
+\end{tikzpicture}
+\caption{Automaton for marking the language $L_2$}
+\label{fig:marking_L2}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+[->,>=stealth, node distance=30mm, auto, initial text=, shorten >=1pt,
+semithick, 
+every state/.style={fill=lightgray},
+every node/.style={scale=0.8}, 
+accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+]
+  \node[initial,state] (0)              {$0$};
+  \node[state]         (1) [right of=0] {$1$};
+  \node[state, accepting]         (2) [right of=1] {$2$};
+
+  \path 
+	(0) edge [loop above] node {$\Sigma_1 \backslash (\Sigma_1 \cap \Sigma_2)$} (0)
+	(0) edge              node {$\Sigma_1 \cap \Sigma_2$} (1)
+	(1) edge [loop above] node {$\Sigma_1 \backslash (\Sigma_1 \cap \Sigma_2)$} (1)
+	(1) edge              node {$\Sigma_1 \cap \Sigma_2$} (2)
+	(2) edge [loop above] node {$\Sigma_1$} (2)
+	(1) edge [bend left]  node {$\Sigma_1 \cap \Sigma_2$} (0)
+    ;
+\end{tikzpicture}
+\caption{Automaton for marking the language $L_1$}
+\label{fig:marking_L1}
+\end{figure}
+
+The Figure \ref{fig:marking_L2} depicts a non-ditermenistic automaton which
+accepts the sublanguage of $L_2$ satisfying conditions (\ref{lem:obs1}),
+(\ref{lem:dist1}) and (\ref{lem:dist3}) of the above lemmas.
+The Figure \ref{fig:marking_L1} depicts a non-ditermenistic automaton which
+marks a sublanguage of $L_1$ satisfying conditions (\ref{lem:obs1}) and
+(\ref{lem:dist1}). 
+
+Thus, given a string $s \in L_1$, a procedure verifying if the string is
+distinguashable in the global language $L$ consists of two steps. Firstly, the
+string $s$ should be accepted by the automaton depicted in the Figure
+\ref{fig:marking_L1}. The set of common events $\Sigma_1 \cap \Sigma_2$
+is reduced to the set of events causing transitions in the automaton. Second,
+all the strings of the language $L_2$which have these common events should be
+accepted by the automaton depicted in the Figure \ref{fig:marking_L2}. 
 
 \newpage
 
