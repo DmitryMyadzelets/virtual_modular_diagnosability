@@ -927,7 +927,7 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
   		(2) edge [loop above] node {$\Sigma_2 \backslash (\Sigma_1 \cap \Sigma_2)$} (2)
         (2) edge              node {$\Sigma_1 \cap \Sigma_2$} (3)
 		(3) edge [loop above] node {$\Sigma_2$} (3)
-        (2) edge [bend left]  node {$\Sigma_1 \cap \Sigma_2$} (1)
+%         (2) edge [bend left]  node {$\Sigma_1 \cap \Sigma_2$} (1)
         ;
 \end{tikzpicture}
 \caption{Automaton for marking the language $L_2$}
@@ -953,27 +953,28 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 	(1) edge [loop above] node {$\Sigma_1 \backslash (\Sigma_1 \cap \Sigma_2)$} (1)
 	(1) edge              node {$\Sigma_1 \cap \Sigma_2$} (2)
 	(2) edge [loop above] node {$\Sigma_1$} (2)
-	(1) edge [bend left]  node {$\Sigma_1 \cap \Sigma_2$} (0)
+% 	(1) edge [bend left]  node {$\Sigma_1 \cap \Sigma_2$} (0)
     ;
 \end{tikzpicture}
 \caption{Automaton for marking the language $L_1$}
 \label{fig:marking_L1}
 \end{figure}
 
-The Figure \ref{fig:marking_L2} depicts a non-ditermenistic automaton which
+The Figure \ref{fig:marking_L2} depicts an automaton which
 accepts the sublanguage of $L_2$ satisfying conditions (\ref{lem:obs1}),
 (\ref{lem:dist1}) and (\ref{lem:dist3}) of the above lemmas.
-The Figure \ref{fig:marking_L1} depicts a non-ditermenistic automaton which
+The Figure \ref{fig:marking_L1} depicts an automaton which
 marks a sublanguage of $L_1$ satisfying conditions (\ref{lem:obs1}) and
 (\ref{lem:dist1}). 
 
-Thus, given a string $s \in L_1$, a procedure verifying if the string is
-distinguashable in the global language $L$ consists of two steps. Firstly, the
-string $s$ should be accepted by the automaton depicted in the Figure
-\ref{fig:marking_L1}. The set of common events $\Sigma_1 \cap \Sigma_2$
-is reduced to the set of events causing transitions in the automaton. Second,
-all the strings of the language $L_2$which have these common events should be
-accepted by the automaton depicted in the Figure \ref{fig:marking_L2}. 
+A procedure verifying if a string $s \in L_1$ is distinguashable in the global
+language $L$ consists of two steps. First, the string $s$ should be accepted by
+the automaton depicted in the Figure \ref{fig:marking_L1}. The set of common
+events $\Sigma_1 \cap \Sigma_2$ is reduced to the set of events causing
+transitions in the automaton. Second, all the continuations of the strings of
+the language $L_2$ which have these common events should be accepted by the
+automaton depicted in the Figure
+\ref{fig:marking_L2}.
 
 \newpage
 
@@ -981,8 +982,8 @@ accepted by the automaton depicted in the Figure \ref{fig:marking_L2}.
 \begin{enumerate}
   \item Do not consider non-compositional analysis first;
   \item Global consistency = local observations after the parallel
-  composition, $\{ P_{I,i}(\parallel_{j \in I}M_i)\}$;
-         
+  composition, $\{ P_{I,i}(\parallel_{j \in I}M_i)\}$;    
+  
 \end{enumerate} 
 
 Our heuristic is that we can tune the order the components are composed to lower
