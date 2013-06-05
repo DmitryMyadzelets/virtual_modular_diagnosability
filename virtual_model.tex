@@ -520,7 +520,7 @@ if the following holds true:
 \end{equation}
 
 It was proved in \cite{contant_diagnosability_2006} by Theorem 2, Part 2 
-that the local diagnosability implies the modular diagnosability \footnote{In
+that the local diagnosability implies the modular diagnosability\footnote{In
 \cite{zhou_decentralized_2008} the authors show that the local diagnosability
 and modular diagnosability are not comparable but they have a different setup
 for the problem.}, i.e.
@@ -532,7 +532,8 @@ for the problem.}, i.e.
 	(|t| \geq n)
 	\\
 	\left[ M_i(st) \cap M_i(L_{i,nf}) = \emptyset \right]
-	\Rightarrow \\ 
+	\Rightarrow 
+	\\ 
 	\left[ M_i(P_i^{-1}(st)) \cap M_i(P_i^{-1}(L_{i,nf})) = \emptyset \right].
 \end{array}
 \end{equation}
@@ -558,7 +559,7 @@ changes their observations.
 \end{conjecture}
 
 The above conjecture gives the insight into the underlining idea of our
-approach. If we find a module which makes the faulty string distinguashable then
+approach. If we find a module which makes the faulty string distinguashable
 then the composition of that module with a faulty one would result in a new
 module satisfying the property of modular diagnosability. In the following
 section we provide a formal description of the problem.
@@ -696,8 +697,8 @@ section we provide a formal description of the problem.
 Our goal is to have the system modularly diagnosable. If the initial modularity
 does not satisfy the property of modular diagnosability we assume that the set
 of modules can be partitioned such that all the modules in each partition can be
-considered as a \emph{virtual module}, and then the new modularity satisfies the
-property of modular diagnosability.
+considered as a \emph{virtual module}, and the system with the new modularity
+satisfies the property of modular diagnosability.
 
 \begin{definition}[Diagnosability of virtual modules] Let $I = \{1,2,\ldots,n\}
 \subset  \mathbb{N}$ be an index set, and $J$ be a partition of $I$. Given the
@@ -723,9 +724,9 @@ if the following holds true:
 \end{equation}
 
 If $\forall j \in J, L_{j} = \parallel L_{i \in j}$ then, by definition, $L =
-\parallel L_{i \in I} = \parallel L_{j \in J}$, and all the statements eligible
-for the definition of modular diagnosability are eligible for the definition of
-the diagnosability by virtual modules.
+\parallel L_{i \in I} = \parallel L_{j \in J}$, and all the statements related
+to the modular diagnosability  property can be applied for the diagnosability by
+virtual modules.
 
 In order to find a partition of system's modules satisfying the modular
 diagnosability property one may take a faulty module, enumerate all possible
@@ -736,10 +737,10 @@ partitions $J$ is exponential with respect to the cardinality of $I$. However,
 not each module can change diagnosability. Thus, we need to find a procedure to
 check if an arbitrary module can change diagnosability, without composition.
 
-In the sequel, for the sake of simplicity, we suppose that the system consist
-only of two modules, with the correspondent languages $L_1$ and $L_2$. The
+In the sequel, for the sake of simplicity, we suppose that the system consists
+only of two modules with the correspondent languages $L_1$ and $L_2$. The
 language of the system is $L = L_1 \parallel L_2$. Suppose that only one module
-has a faulty behaviour, i.e $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
+has a faulty behaviour: $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
 Suppose that $L_1$ is not locally diagnosable, but $L$ is diagnosable.
 
 Firstly, we define the notion of observation changing of a string in a global
@@ -901,10 +902,11 @@ false, then (\ref{lem:dist1}) is false. However, (\ref{lem:dist3}) is suffucient
 for (\ref{lem:dist1}), which contradicts the former statement.
 \end{proof}
 
-Informally, the above lemma implies blocking of the occurence of observable
-events from the observable support of $s$ in all the strings of the
-global language which are projected to $L_1\backslash s$. Then, whenever we
-observe these events we are sure they occure in the prefix of $s$.
+Informally, the above lemma says that a string $s$ becomes distinguashable from
+the other strings $L_1\backslash s$ in the global languages, when the occurence
+of events from the observable support happens only in $P^{-1}(s)$ due to
+blocking by commone events. Thus, whenever we observe those events of $L_2$,
+we are sure the string $s$ in $L_1$ is being executed.
 
 \begin{figure}[t]
 \centering
@@ -975,6 +977,7 @@ transitions in the automaton. Second, all the continuations of the strings of
 the language $L_2$ which have these common events should be accepted by the
 automaton depicted in the Figure
 \ref{fig:marking_L2}.
+
 
 \newpage
 
