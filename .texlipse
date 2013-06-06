@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Wed Feb 20 12:40:10 CET 2013
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=virtual_model.tex
+outputFile=virtual_model.pdf
+langSpell=en
+markDer=true
+srcDir=
