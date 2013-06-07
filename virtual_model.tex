@@ -50,7 +50,7 @@ University of Bologna, Viale Pepoli 3/2, 40123, Bologna, Italy}
 This paper introduces an approach to achieve the modular diagnosability property
 of a system by creating virtual modules. A non-compositional analysis of the
 system is introduced as a preliminary step for the process of verification of
-modular diagnosability property, in order to reduce the overall computational
+modular diagnosability property, as a way to reduce the overall computational
 expenses. An example of the approach is included.
 \end{abstract}
 
@@ -72,18 +72,18 @@ Discrete Event Systems, Modular Structure, Distributed Diagnosability
 % the problems are solved. What we suggest exactly and what is that for.
 % How this paper is structured.
 
-Discrete-Event Systems (DES) has successfully concurred significant area in
+Discrete-Event Systems (DES) has successfully concurred significant area in the
 systems engineering discipline due to their enormous capabilities of designing
 and managing complex projects. While ``real-world'' systems are growing in scale
-the solutions DES provide have to evolve in order to tackle increasing
-complexity issues. Development of solutions relying on the fact that the most of
-complex system have naturally modular structure thus has been under focus for
-the last two decades. Particularly, the task of design verification and
+the solutions provided by DES have to evolve to tackle the increasing complexity
+issues. For that reason the development of solutions relying on the fact that
+the most of complex systems have naturally modular structure has been under
+focus for the last two decades. Particularly, the task of design verification and
 diagnosis with respect to undesired behaviour, commonly refereed as to faulty
-behaviour of discrete systems has a fairly developed theory nowadays.
+behaviour of discrete systems, has a fairly developed theory nowadays.
 In this paper we consider the automata framework for diagnosability analysis,
-where behaviour of a DES is modeled by regular languages and is represented by
-automata.
+where a behaviour of DES is modeled by regular language and is represented
+by automata.
 
 Diagnosability analysis includes a verification if one can detect if the system
 executes a faulty behaviour, i.e. a fault occurred, and a verification if one
@@ -448,11 +448,11 @@ provide a formal description of the problem.
 \label{fig_distributed}
 \end{figure}   
 
+
 \subsection{Architectures for on-line diagnosis}
-In the following we present a general classification of the
+Here we present a general classification of the
 architectures for on-line diagnosis presented in literature. They may be divided
 in three types: centralized, decentralized and distributed.
-
 
 \subsubsection{Centralized}
 The structure of the centralized diagnosis is depicted in
@@ -460,7 +460,6 @@ Figure \ref{fig_centralized}. In this architecture the global language is
 built by the parallel composition and then the diagnoser $D$ introduced in
 \cite{sampath_diagnosability_1995} for the global language is constructed. Upon
 the current state of the diagnoser a decision on the fault occurrence is made.
-
 
 \subsubsection{Decentralized}
 In the approach only local diagnosers are built.
@@ -470,7 +469,6 @@ architecture is depicted in Figure \ref{fig_decentralized}.
 Notable works on decentralized architecture are
 \cite{debouk_coordinated_1998},
 \cite{contant_diagnosability_2006} and \cite{wang_diagnosis_2007}.
-
 
 \subsubsection{Distributed}
 The architecture is depicted in Figure \ref{fig_distributed}.
@@ -661,7 +659,7 @@ for (\ref{lem:dist1}), which contradicts the former statement.
 Informally, the above lemma says that a string $s$ becomes distinguashable from
 the other strings $L_1\backslash s$ in the global languages, when the occurence
 of events from the observable support happens only in $P^{-1}(s)$ due to
-commone events. Thus, whenever we observe those events of $L_2$,
+common events. Thus, whenever we observe those events of $L_2$,
 we are sure the string $s$ in $L_1$ is being executed.
 
 
@@ -747,10 +745,172 @@ automaton depicted in the Figure
 \section{Example}
 \label{sec:Example}
 
+Consider the system of two automata $G_1$ and $G_2$ depicted in Figure
+\ref{fig:G1} and Figure \ref{fig:G2}. The set of events for the system is
+$\Sigma = \{a, b, c, e, f\}$. Suppose the observable events are $\Sigma_o = \{c,
+e\}$, and the set of faut events is $\{f\}$. Thus, only the language $L_1$ has a
+fault, and $L_2$ has not. We use the verifier \cite{yoo_polynomial-time_2002} to
+check if a language is diagnosable. The verifier for the language $L_1$ is
+depicted in the Figure \ref{fig:verifier_G1}. One can check that it has an
+indeterminate cycle.
+The strings $fbc^*$ and $ac^*$ are not distinguashable in the local language
+$L_1$. Hence, $L_1$ is not locally diagnosable.
+
+We now use the verification procedure described in this paper to check if the
+language $L_2$ can changes observation of either strings $fbc^*$ or
+$ac^*$ in the language $L_1 \parallel L_2$ such that the strings became
+distinguashable. The set of events common for $L_1$ and $L_2$ is $\{b, c\}$. It
+can be verified that only the strings $fbc^*$ are marked by the automaton
+depicted in the Figure \ref{fig:marking_L1}. Next, it can be verified that all
+the strings of $L_2$ which have events common with the strings $fbc^*$ are
+accepted by the automaton depicted in the Figure \ref{fig:marking_L2}. Thus, we
+conclude that $L_2$ changes observation of the strings $fbc^*$ in the virtual
+module $G$ built of modules $G_1$ and $G_2$, such that $G$ becomes diagnosable.
+Indeed, if we make a parallel composition of the modules and build a verifier
+for the result as it is depicted in the Figure \ref{fig:verifier_G1G2}, it can
+be checked that the verifier has no indeterminate cycles.
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+[->,>=stealth, node distance=25mm, auto, initial text=, shorten >=1pt,
+semithick, 
+every state/.style={fill=lightgray},
+every node/.style={scale=0.8}, 
+accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+]
+  \node[initial,state]		(0)              		{$0$};
+  \node[state, accepting]   (1) [above right of=0]	{$1$};
+  \node[state]         		(2) [right of=0]		{$2$};
+  \node[state, accepting]	(3) [right of=2]		{$3$};
+
+  \path
+ 	(0) edge              node {$a$} (1)
+ 	(1) edge [loop above] node {$c$} (1)
+ 	(0) edge              node {$f$} (2)
+ 	(2) edge              node {$b$} (3)
+ 	(3) edge [loop above] node {$c$} (3)
+    ;
+\end{tikzpicture}
+\caption{Automaton $G_1$}
+\label{fig:G1}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+[->,>=stealth, node distance=25mm, auto, initial text=, shorten >=1pt,
+semithick, 
+every state/.style={fill=lightgray},
+every node/.style={scale=0.8}, 
+accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+]
+  \node[initial,state]		(0)              		{$0$};
+  \node[state]         		(1) [right of=0]		{$1$};
+  \node[state, accepting]	(2) [right of=1]		{$2$};
+
+  \path
+ 	(0) edge              node {$a$} (1)
+ 	(0) edge [loop above] node {$c$} (0)
+ 	(0) edge              node {$b$} (1)
+ 	(1) edge              node {$e$} (2)
+ 	(2) edge [loop above] node {$c$} (2)
+    ;
+\end{tikzpicture}
+\caption{Automaton $G_2$}
+\label{fig:G2}
+\end{figure}
+
+% It is a nice looking version of the verifier below, but its caption
+% disappears when the Figure is shown. Strange...
+ 
+% \begin{figure}[t]
+% \centering
+%  	\includegraphics[height=50mm]{G1.jpg}
+%  	\includegraphics[height=50mm]{G2.jpg}
+% \caption{Automata $G_1$ and $G_2$}
+% \label{fig:G1_and_G2}
+% \end{figure}
+% 
+% \begin{figure}[t]
+% \centering
+% \begin{tikzpicture}
+% [->,>=stealth, node distance=20mm, auto, initial text=, shorten >=1pt,
+% semithick, 
+% every state/.style={fill=lightgray},
+% every node/.style={scale=0.8}, 
+% accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+% ]
+%   \node[initial,state]		(0N0N)             			{0N,0N};
+%   \coordinate[below of=0N0N](fake);
+%   \node[state]         		(2F0N) [left of=fake]		{2F,0N};
+%   \node[state]         		(1N0N) [right of=fake]		{1N,0N};
+%   \node[state]         		(3F0N) [below of=2F0N]		{3F,0N};
+%   \node[state]         		(2F2F) [left of=3F0N]		{2F,2F};
+%   \node[state]         		(1N2F) [right of=3F0N]		{1N,2F};
+%   \node[state]         		(1N1N) [right of=1N2F]		{1N,1N};
+%   \node[state]         		(3F2F) [below of=3F0N]		{3F,2F};
+%   \node[state]         		(1N3F) [below of=1N2F]		{1N,3F};
+%   \node[state]         		(3F3F) [below of=3F2F]		{3F,3F};
+% 
+%   \path
+%   	(0N0N) edge              node {$f$} (2F0N)
+%   	(0N0N) edge              node {$a$} (1N0N)
+%   	(2F0N) edge              node {$f$} (2F2F)
+%   	(2F0N) edge              node {$b$} (3F0N)
+%   	(2F0N) edge              node {$a$} (1N2F)
+%   	(1N0N) edge              node {$f$} (1N2F)
+%   	(1N0N) edge              node {$a$} (1N1N)
+%  	(1N1N) edge [loop right] node {$c$} (1N1N)
+%   	(2F2F) edge              node {$b$} (3F2F)
+%   	(3F0N) edge              node {$f$} (3F2F)
+%   	(3F0N) edge              node {$a$} (1N3F)
+%   	(1N2F) edge              node {$b$} (1N3F)
+%   	(1N3F) edge [loop right] node {$c$} (1N3F)
+%   	(3F2F) edge              node {$b$} (3F3F)
+%   	(3F3F) edge [loop right] node {$c$} (3F3F)
+%     ;
+% \end{tikzpicture}
+% \caption{Verifier of $G_1}
+% \label{fig:verifier_G1}
+% \end{figure}
+
+\begin{figure}[t]
+\centering
+ 	\includegraphics[height=80mm]{verifier_G1.jpg}
+\caption{Verifier of $G_1$}
+\label{fig:verifier_G1}
+\end{figure}
+
+\begin{figure}[t]
+\centering
+\includegraphics[height=100mm]{verifier_G1G2.jpg}
+\caption{Verifier of $G_1 \parallel G_2$}
+\label{fig:verifier_G1G2}
+\end{figure}
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 \label{sec:Conclusion}
+
+In this paper we proposed an approach to achive the modular diagnosability
+for DES which does not have this property. The approach suggestes to combine
+the existing modules of the system into virtual modules in a way that the
+system with the new modularity is modular diagnosable.
+
+We introduced a non-compositional analysis of the system's modules, which
+allows to verifiy if one module may change its observation by composition with
+others, and if another module can change the obsevation of others. We defined
+suffucient and necessary conditions for the modules' languages. If languages
+satisfy those conditions then one can state that the systems can be made modular
+diagnosable. No parallel composition of the modules is involved in the analysis.
+The suggested verificaion procedure has linear complixity with respect to
+the number of states of a module.
+
+We leave for the future work the problem of defining criteria of how to select
+the best candidates for creating the virtual modules, and what the optimal
+partition of the set of modules can be.
 
 %\addtolength{\textheight}{-16.7cm}   
 % This command serves to balance the column lengths on the last page of the

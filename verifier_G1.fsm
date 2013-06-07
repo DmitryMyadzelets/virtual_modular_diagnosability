@@ -1,0 +1,37 @@
+10
+
+0N,0N	0	2
+a	1N,0N	uc	uo 
+f	2F1,0N	uc	uo 
+
+1N,2F1	0	1
+b	1N,3F1	uc	uo 
+
+3F1,3F1	0	1
+c	3F1,3F1	c	o
+
+3F1,0N	0	2
+f	3F1,2F1	uc	uo 
+a	1N,3F1	uc	uo 
+
+2F1,2F1	0	1
+b	3F1,2F1	uc	uo 
+
+1N,3F1	0	1
+c	1N,3F1	c	o
+
+1N,1N	0	1
+c	1N,1N	c	o
+
+2F1,0N	0	3
+b	3F1,0N	uc	uo 
+a	1N,2F1	uc	uo 
+f	2F1,2F1	uc	uo 
+
+1N,0N	0	2
+f	1N,2F1	uc	uo 
+a	1N,1N	uc	uo 
+
+3F1,2F1	0	1
+b	3F1,3F1	uc	uo 
+
