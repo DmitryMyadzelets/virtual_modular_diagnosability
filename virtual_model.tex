@@ -162,8 +162,8 @@ The notation used in this document is adopted from
 Let $\Sigma$ be a finite set of events. A sequence of events is a string.
 $\Sigma^*$ denotes a set of all finite strings over $\Sigma$.
 $L\subseteq\Sigma^*$ is a language over $\Sigma$. Given strings $s$ and $t$,
-$st$ is their concatenation. Given strings $s$ and $s'$, $s'$ is a prefix of $s$
-if exists $t$ such that $s't = s$. Prefix closer of $L$, denoted by
+$st$ is their concatenation. Given strings $s$ and $w$, $w$ is a prefix of $s$
+if exists $t$ such that $wt = s$. Prefix closure of $L$, denoted by
 $\overline{L}$ is a set of all prefixes of all strings in $L$.
 If $\overline{L} = L$ then $L$ is prefix-closed. The post language of $L$ after
 a string $s$ is denoted as $L/s$, i.e. $L/s = \{t\mid st \in L\}$. We
@@ -197,8 +197,8 @@ of the automata and languages from these sets. The \emph{global} language of the
 system is thus defined by the parallel composition of its local languages: $L =
 \parallel_{i \in I} L_i$.
 The natural projection is commonly defined over Kleene closure on event sets.
-We restrict it, for the simplicity of notation, to the system's languages as
-follows: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i}) = \{s' \mid s' \in
+We restrict it, for simplicity of notation, to the system's languages as
+follows: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i}) = \{s \mid s \in
 L\}, ~i \in I$.
 
 
@@ -555,10 +555,10 @@ language $L$ if and only if:
 	\label{lem:obs1}
 	\\
 	(\forall t\sigma \in \overline{L_2})
-	\left[M'_2(t) \neq \emptyset \right],
+	\left[M_2(t) \neq \emptyset \right],
 	\label{lem:obs2}
 	\\
-	\textrm{where } M'_2: \Sigma^* \rightarrow (\Sigma_{2,o} \backslash
+	\textrm{where } M_2: \Sigma^* \rightarrow (\Sigma_{2,o} \backslash
 	\Sigma_1)^*. 
 	\label{lem:obs3}
 \end{align}
@@ -568,19 +568,19 @@ language $L$ if and only if:
 In order to prove sufficiency of (\ref{lem:obs}) we use its converse relation
 and prove by contradiction that the change of observation (\ref{def:obs}) is
 necessary.
-Assume $\exists s' \in L$ and $\exists s \in L_1$ such that
-$M(s')= M_1(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
-\sigma \in \Sigma_1 \cap \Sigma_2$ such that $\sigma \in s'$ and also
-(\ref{lem:obs1}) holds. Then may $\exists t'\sigma \in \overline{s'}$ such that
-$M'_2(t') = \emptyset$, and then $M'_2(P_2(t')) =
+Assume $\exists w \in L$ and $\exists s \in L_1$ such that
+$M(w)= M_1(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
+\sigma \in \Sigma_1 \cap \Sigma_2$ such that $\sigma \in w$ and also
+(\ref{lem:obs1}) holds. Then may $\exists u \sigma \in \overline{w}$ such that
+$M_2(u) = \emptyset$, and then $M_2(P_2(u)) =
 \emptyset$ which contradicts (\ref{lem:obs2}). Now, let (\ref{lem:obs2})
-be true for all $t\sigma \in \overline{P_2(s')}$. Then the assumption $M(s')=
+be true for all $t\sigma \in \overline{P_2(w)}$. Then the assumption $M(w)=
 M_1(s)$ holds only if $\sigma \not \in s$, which contradicts (\ref{lem:obs1}). 
 
 We prove necessity of (\ref{lem:obs}) by contradiction.
 Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in \overline{L_2}$ such that
-$M'_2(t) = \emptyset$. Then may $\exists t'\sigma \in 
-L \subseteq P_2^{-1}(t\sigma)$ such that $M'_2(t') =
+$M_2(t) = \emptyset$. Then may $\exists t'\sigma \in 
+L \subseteq P_2^{-1}(t\sigma)$ such that $M_2(t') =
 \emptyset$ and $M_1(t') = M_1(s) \neq \emptyset$, which contradicts
 (\ref{def:obs}).
 Now, let (\ref{lem:obs2}) holds and $\not \exists \sigma \in s' \in P_1^{-1}(s)
@@ -630,12 +630,12 @@ following condition:
 	\label{lem:dist2}
 	\\
 	(\forall t'\sigma \in \overline{t})
-	[M'_2(t\backslash t'\sigma) \neq \emptyset]
+	[M_2(t / t'\sigma) \neq \emptyset]
 	\label{lem:dist3},
 \end{align}
 \end{subequations}
 
-where $M'_2$ is defined as in (\ref{lem:obs3}). 
+where $M_2$ is defined as in (\ref{lem:obs3}). 
 
 \begin{proof}
 Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_1^{-1}(w)$ and $\exists
@@ -643,13 +643,13 @@ s' \in P_1^{-1}(s)$ such that $M(w') = M(s')$.
 
 Assume (\ref{lem:dist1}) and (\ref{lem:dist2}) hold. Then may $\exists t' \in
 \overline{s'} \mid t' \in P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t =
-P_2(t')$ such that $M'_2(t) = M'_2(w)$. And may $\exists t'' \in \overline{t}$
-such that $M'_2(t'') = M'_2(w)$. Since $\sigma \in t$ and $\sigma \not \in w$,
+P_2(t')$ such that $M_2(t) = M_2(w)$. And may $\exists t'' \in \overline{t}$
+such that $M_2(t'') = M_2(w)$. Since $\sigma \in t$ and $\sigma \not \in w$,
 then $M(t \backslash t''\sigma) = \emptyset$ for any $t''\sigma \in
 \overline{t}$, which contradicts (\ref{lem:dist3}).
 
 Assume (\ref{lem:dist1}) and (\ref{lem:dist3}) hold. Let $M_1(L_1) = \emptyset$
-and $M'_2(t\backslash t'\sigma) = M'_2(s) = M_2(s)$. Then $\forall s' \in
+and $M_2(t\backslash t'\sigma) = M_2(s) = M_2(s)$. Then $\forall s' \in
 M(P_1^{-1}(s))$ there exists $\sigma \in s'$, which contradicts
 (\ref{lem:dist2}).
 
@@ -722,7 +722,7 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 As it was discussed in the Section \ref{sec:Diagnosability}, indistingushability
 can be changed either by blocking the string in the local language due to
 concurrency or by interleaving with observable events in other languages. Under
-assumption that all the strings are not affected by concurrency, i.e. $L_1 =
+assumption that the all strings are not affected by concurrency, i.e. $L_1 =
 P_1(L)$ we can state that the conditions of Lemma \ref{lem:distinguished} are
 also necessary for changing distinguishability. For the sake of brevity no proof is
 provided here.
@@ -762,12 +762,13 @@ language $L = L_1 \parallel L_2$ is diagnosable if $L_{1,f}$ or $L_{1,nf}
 satisfies conditions \ref{lem:dist1}-\ref{lem:dist3}.
 \end{lemma}
 
-Clearly, in a procedure verifying diagnosability the automata depicted in
-Figures \ref{fig:marking_L2} and \ref{fig:marking_L1} can not be simply used,
-since we shoud avoid the verification of $\overline{L_{1,f}} \backslash L_{1,f}$
-and $L_{1,nf} \backslash \overline{L_{1,f}}$. We leave development of such
-procedure for a further work. However, the automata can be used to demonstrate
-the approach in a trivial case, as it is shown in the next section.
+Clearly, the automata depicted in Figures \ref{fig:marking_L2} and
+\ref{fig:marking_L1} can not be simply used in a procedure verifying
+diagnosability, since we should avoid the verification of $\overline{L_{1,f}}
+\backslash L_{1,f}$ and $L_{1,nf} \backslash \overline{L_{1,f}}$. We leave
+development of such procedure for furture work. However, the automata can be
+used to demonstrate the approach in a trivial case, as it is shown in the next
+section.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Example}
@@ -813,6 +814,7 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
   \node[state, accepting]	(3) [right of=2]		{$3$};
 
   \path
+ 	(0) edge [loop above] node {$c$} (0)
  	(0) edge              node {$a$} (1)
  	(1) edge [loop above] node {$c$} (1)
  	(0) edge              node {$f$} (2)
@@ -905,10 +907,95 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 
 \begin{figure}[t]
 \centering
- 	\includegraphics[height=80mm]{verifier_G1.jpg}
+\begin{tikzpicture}
+[->,>=stealth, node distance=22mm, auto, initial text=, shorten >=1pt,
+semithick, 
+every node/.style={scale=0.8}, 
+accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+]
+  \node[draw, initial](0N0N)              	  {$0N;0N$};
+  \node[draw]         (2F0N) [below of =0N0N] {$2F;0N$};
+  \node[draw]         (1N0N) [right of =2F0N] {$1N;0N$};
+  \node[draw]         (3F0N) [below of =2F0N] {$3F;0N$};
+  \node[draw]         (2F2F) [left of =3F0N]  {$2F;2F$};
+  \node[draw]         (1N2F) [right of =3F0N] {$1N;2F$};
+  \node[draw]         (1N1N) [right of =1N2F] {$1N;1N$};
+  \node[draw]         (1N3F) [below of =1N2F] {$1N;3F$};
+  \node[draw]         (3F2F) [below of =3F0N] {$3F;2F$};
+  \node[draw]         (3F3F) [below of =3F2F] {$3F;3F$};
+
+  \path 
+	(0N0N) edge	node {$f$} (2F0N)
+	(0N0N) edge	node {$a$} (1N0N)
+	(2F0N) edge	node {$f$} (2F2F)
+	(2F0N) edge	node {$f$} (2F2F)
+	(2F0N) edge	node {$b$} (3F0N)
+	(2F0N) edge	node {$a$} (1N2F)
+	(1N0N) edge	node {$f$} (1N2F)
+	(1N0N) edge	node {$a$} (1N1N)
+	(1N1N) edge [loop below] node {$c$} (1N1N)
+	(2F2F) edge	node {$b$} (3F2F)
+	(3F0N) edge	node {$f$} (3F2F)
+	(3F0N) edge	node {$a$} (1N3F)
+	(1N2F) edge	node {$b$} (1N3F)
+	(3F2F) edge	node {$b$} (3F3F)
+	(3F3F) edge [loop below] node {$c$} (3F3F)
+	(1N3F) edge [loop below] node {$c$} (1N3F)
+    ;
+\end{tikzpicture}
 \caption{Verifier of $G_1$}
 \label{fig:verifier_G1}
 \end{figure}
+
+% \begin{figure}[t]
+% \centering
+%  	\includegraphics[height=80mm]{verifier_G1.jpg}
+% \caption{Verifier of $G_1$}
+% \label{fig:verifier_G1}
+% \end{figure}
+
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+[->,>=stealth, node distance=22mm, auto, initial text=, shorten >=1pt,
+semithick, 
+every node/.style={scale=0.8}, 
+accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
+]
+  \node[draw, initial](00N00N)              	  {$0,0N;0,0N$};
+  \node[draw]         (20F10N) [below of =00N00N] {$2,0F;1,0N$};
+  \node[draw]         (10N00N) [right of =20F10N] {$1,0N;0,0N$};
+  \node[draw]         (31F00N) [below of =20F10N] {$3,1F;0,0N$};
+  \node[draw]         (20F20F) [left of =31F00N]  {$2,0F;2,0F$};
+%   \node[draw]         (1N2F) [right of =3F0N] {$1N;2F$};
+%   \node[draw]         (1N1N) [right of =1N2F] {$1N;1N$};
+%   \node[draw]         (1N3F) [below of =1N2F] {$1N;3F$};
+%   \node[draw]         (3F2F) [below of =3F0N] {$3F;2F$};
+%   \node[draw]         (3F3F) [below of =3F2F] {$3F;3F$};
+
+%   \path 
+% 	(0N0N) edge	node {$f$} (2F0N)
+% 	(0N0N) edge	node {$a$} (1N0N)
+% 	(2F0N) edge	node {$f$} (2F2F)
+% 	(2F0N) edge	node {$f$} (2F2F)
+% 	(2F0N) edge	node {$b$} (3F0N)
+% 	(2F0N) edge	node {$a$} (1N2F)
+% 	(1N0N) edge	node {$f$} (1N2F)
+% 	(1N0N) edge	node {$a$} (1N1N)
+% 	(1N1N) edge [loop below] node {$c$} (1N1N)
+% 	(2F2F) edge	node {$b$} (3F2F)
+% 	(3F0N) edge	node {$f$} (3F2F)
+% 	(3F0N) edge	node {$a$} (1N3F)
+% 	(1N2F) edge	node {$b$} (1N3F)
+% 	(3F2F) edge	node {$b$} (3F3F)
+% 	(3F3F) edge [loop below] node {$c$} (3F3F)
+% 	(1N3F) edge [loop below] node {$c$} (1N3F)
+%     ;
+\end{tikzpicture}
+\caption{Verifier of $G_1 \parallel G_2$}
+\label{fig:verifier_G1G2}
+\end{figure}
+
 
 \begin{figure}[t]
 \centering
