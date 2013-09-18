@@ -49,11 +49,11 @@ University of Bologna, Viale Pepoli 3/2, 40123, Bologna, Italy}
 
 \begin{abstract}
 This paper introduces an approach to achieve the modular diagnosability property
-of a system by combining existing modules into virtual modules. A
-non-compositional analysis of the system is introduced as a preliminary step for
-the process of verification of the modular diagnosability property, as a way to
-reduce the overall computational expenses. An example of the approach is
-included.
+of a system by combining existing modules into new modules wich we call virtual
+modules. A non-compositional analysis of the system is introduced, as a
+preliminary step for the process of verification of the modular diagnosability
+property. The analysis aimed to reduce the overall computational expenses. An
+example of the approach is included.
 \end{abstract}
 
 \begin{keywords}
@@ -339,6 +339,28 @@ for the problem.}, i.e.
 \end{array}
 \end{equation}
 
+% Move this picture to a place it looks better, if necessary.  
+\begin{figure}[t]
+\centering
+\begin{tikzpicture}
+	\node[draw]		(0)	at (1, 3) 		{$L_1$};
+	\node[]			(1)	[right of = 0]	{$\ldots$};
+	\node[draw]		(2)	[right of = 1]	{$L_n$};
+	\draw[dashed] (0, 2.5) rectangle (4, 3.5);
+	\node[]			(3) at (2, 2.6) {};
+	\node[draw]		(4) at (2, 1) {$D$};
+	\draw[->] (3) -- (4);
+	\node[]	at (3, 1.8) {$M(\parallel_{i} L_i)$};
+	\node[]		(5) [below of = 4] {};
+	\draw[->] (4) -- (5);
+	\draw[] (0, -.5) rectangle (4, 0.1);
+	\node[]			(3) at (2, -.2) {Decision};
+\end{tikzpicture}
+\caption{Architecture of a system with centralized diagnosis}
+\label{fig_centralized}
+\end{figure}
+
+
 Recall the Definition \ref{def:fault_is_diag} of the diagnosable fault. If a
 module is not diagnosable locally then exist at least two strings in its
 language, one is faulty and one is not, with the same observation of arbitrary
@@ -371,27 +393,6 @@ provide a formal description of the problem.
 % presented in \cite{sampath_diagnosability_1995} because it does not assume non
 % existence of unobservable cycles.
 
-
-\begin{figure}[t]
-\centering
-\begin{tikzpicture}
-	\node[draw]		(0)	at (1, 3) 		{$L_1$};
-	\node[]			(1)	[right of = 0]	{$\ldots$};
-	\node[draw]		(2)	[right of = 1]	{$L_n$};
-	\draw[dashed] (0, 2.5) rectangle (4, 3.5);
-	\node[]			(3) at (2, 2.6) {};
-	\node[draw]		(4) at (2, 1) {$D$};
-	\draw[->] (3) -- (4);
-	\node[]	at (3, 1.8) {$M(\parallel_{i} L_i)$};
-	\node[]		(5) [below of = 4] {};
-	\draw[->] (4) -- (5);
-	\draw[] (0, -.5) rectangle (4, 0.1);
-	\node[]			(3) at (2, -.2) {Decision};
-
-\end{tikzpicture}
-\caption{Architecture of a system with centralized diagnosis}
-\label{fig_centralized}
-\end{figure}
 
 
 \begin{figure}[t]
@@ -809,9 +810,9 @@ every node/.style={scale=0.8},
 accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 ]
   \node[initial,state]		(0)              		{$0$};
-  \node[state, accepting]   (1) [above right of=0]	{$1$};
+  \node[state ]   (1) [above right of=0]	{$1$};
   \node[state]         		(2) [right of=0]		{$2$};
-  \node[state, accepting]	(3) [right of=2]		{$3$};
+  \node[state]	(3) [right of=2]		{$3$};
 
   \path
  	(0) edge [loop above] node {$c$} (0)
@@ -837,7 +838,7 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 ]
   \node[initial,state]		(0)              		{$0$};
   \node[state]         		(1) [right of=0]		{$1$};
-  \node[state, accepting]	(2) [right of=1]		{$2$};
+  \node[state]	(2) [right of=1]		{$2$};
 
   \path
 %  	(0) edge              node {$a$} (1)
@@ -963,71 +964,70 @@ every node/.style={scale=0.8},
 accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 ]
   \node[draw, initial](00N00N)              	  {$0,0N;0,0N$};
-  \node[draw]         (20F10N) [below of =00N00N] {$2,0F;1,0N$};
-  \node[draw]         (10N00N) [right of =20F10N] {$1,0N;0,0N$};
-  \node[draw]         (31F00N) [below of =20F10N] {$3,1F;0,0N$};
+  \node[draw]         (20F00N) [below of =00N00N] {$2,0F;0,0N$};
+  \node[draw]         (10N00N) [right of =20F00N] {$1,0N;0,0N$};
+  \node[draw]         (31F00N) [below of =20F00N] {$3,1F;0,0N$};
   \node[draw]         (20F20F) [left of =31F00N]  {$2,0F;2,0F$};
-%   \node[draw]         (1N2F) [right of =3F0N] {$1N;2F$};
-%   \node[draw]         (1N1N) [right of =1N2F] {$1N;1N$};
-%   \node[draw]         (1N3F) [below of =1N2F] {$1N;3F$};
-%   \node[draw]         (3F2F) [below of =3F0N] {$3F;2F$};
-%   \node[draw]         (3F3F) [below of =3F2F] {$3F;3F$};
+  \node[draw]         (20F10N) [right of =31F00N] {$2,0F;1,0N$};
+  \node[draw]         (10N10N) [right of =20F10N] {$1,0N;1,0N$};
+  \node[draw]         (31F20F) [below of =31F00N] {$3,1F;2,0F$};
+  \node[draw]         (31F10N) [below of =20F10N] {$3,1F;1,0N$};
+  \node[draw]         (31F31F) [below of =31F20F] {$3,1F;3,1F$};
+  \node[draw]         (32F32F) [below of =31F31F] {$3,2F;3,2F$};
 
-%   \path 
-% 	(0N0N) edge	node {$f$} (2F0N)
-% 	(0N0N) edge	node {$a$} (1N0N)
-% 	(2F0N) edge	node {$f$} (2F2F)
-% 	(2F0N) edge	node {$f$} (2F2F)
-% 	(2F0N) edge	node {$b$} (3F0N)
-% 	(2F0N) edge	node {$a$} (1N2F)
-% 	(1N0N) edge	node {$f$} (1N2F)
-% 	(1N0N) edge	node {$a$} (1N1N)
-% 	(1N1N) edge [loop below] node {$c$} (1N1N)
-% 	(2F2F) edge	node {$b$} (3F2F)
-% 	(3F0N) edge	node {$f$} (3F2F)
-% 	(3F0N) edge	node {$a$} (1N3F)
-% 	(1N2F) edge	node {$b$} (1N3F)
-% 	(3F2F) edge	node {$b$} (3F3F)
-% 	(3F3F) edge [loop below] node {$c$} (3F3F)
-% 	(1N3F) edge [loop below] node {$c$} (1N3F)
-%     ;
+  \path
+	(00N00N) edge	node {$f$} (20F00N)
+	(00N00N) edge	node {$a$} (10N00N)
+	(20F00N) edge	node {$f$} (20F20F)
+	(20F00N) edge	node {$f$} (20F10N)
+	(20F00N) edge	node {$a$} (31F00N)
+	(10N00N) edge	node {$f$} (20F10N)
+	(10N00N) edge	node {$a$} (10N10N)
+	(10N10N) edge [loop below] node {$c$} (10N10N)
+	(20F20F) edge	node {$b$} (31F20F)
+	(31F00N) edge	node {$f$} (31F20F)
+	(31F00N) edge	node {$a$} (31F10N)
+	(20F10N) edge	node {$b$} (31F10N)
+	(31F20F) edge	node {$b$} (31F31F)
+	(31F31F) edge	node {$e$} (32F32F)
+	(32F32F) edge [loop below] node {$c$} (32F32F)
+    ;
 \end{tikzpicture}
 \caption{Verifier of $G_1 \parallel G_2$}
 \label{fig:verifier_G1G2}
 \end{figure}
 
+% \begin{figure}[t]
+% \centering
+% \includegraphics[height=100mm]{verifier_G1G2.jpg}
+% \caption{Verifier of $G_1 \parallel G_2$}
+% \label{fig:verifier_G1G2}
+% \end{figure}
 
-\begin{figure}[t]
-\centering
-\includegraphics[height=100mm]{verifier_G1G2.jpg}
-\caption{Verifier of $G_1 \parallel G_2$}
-\label{fig:verifier_G1G2}
-\end{figure}
 
-
+\addtolength{\textheight}{-0.5cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 \label{sec:Conclusion}
 
-In this paper we proposed an approach to achive the modular diagnosability
-for DES which does not have this property. The approach suggestes to combine
-the existing modules of the system into virtual modules in a way that the
-system with the new modularity is modular diagnosable.
+In this paper we introduced a notion of virtual modules for DES, and proposed a
+new definition of modular diagnosability by virtual modules. The approach
+suggestes to combine the existing modules of the system into virtual modules in
+a way that the system with the new modularity is modular diagnosable.
 
-We introduced a non-compositional analysis of the system's modules, which
-allows to verifiy if one module may change its observation by composition with
-others, and if another module can change the obsevation of others. We defined
-suffucient and necessary conditions for the modules' languages. If the languages
-satisfy those conditions then one can state that the systems can be made modular
-diagnosable. No parallel composition of the modules is involved in the analysis.
-The suggested verificaion procedure has linear complixity with respect to
-the number of states of a module.
+We introduced a non-compositional analysis of the system's modules, which allows
+to verifiy if one module may change its observation by composition with others,
+and if another module can change the obsevation of other modules. We defined
+correspondent suffucient and necessary conditions for the modules' languages. If
+the languages satisfy those conditions then one can state that the system can
+be made modular diagnosable by creating virtual modules.
+The suggested verificaion procedure has linear complexity with respect to the
+number of states of a module.
 
 We leave for the future work the problem of defining criteria of how to select
-the best candidates for creating the virtual modules, and what the optimal
-partition of the set of the modules can be.
+the best candidates for creating the virtual modules, what the optimal
+partition of the set of the modules can be, and generalization of the problem.
 
-%\addtolength{\textheight}{-16.7cm}   
 % This command serves to balance the column lengths on the last page of the
 % document manually. It shortens the textheight of the last page by a suitable
 % amount. This command does not take effect until the next page so it should come
