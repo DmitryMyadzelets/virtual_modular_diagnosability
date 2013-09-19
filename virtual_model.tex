@@ -248,7 +248,8 @@ $\overline{L}$ is a set of all prefixes of all strings in $L$.
 If $\overline{L} = L$ then $L$ is prefix-closed. The post language of $L$ after
 a string $s$ is denoted as $L/s$, i.e. $L/s = \{t\mid st \in L\}$. We
 write $\sigma \in s$ if the event $\sigma \in \Sigma$ appears in the string $s
-\in \Sigma^*$.
+\in \Sigma^*$. If $\{s\}$ is a singleton, we write $s$ for operations on
+languages.
 
 An automaton $G$ is a tuple $$G=(X,\Sigma,\Delta,x_0, X_m),$$ where $X$ is a
 set of states, $x_0 \in X$ is an initial state, $X_m \subseteq X$ is the set of
@@ -608,10 +609,10 @@ in the language $L$ if the following holds true:
 \begin{equation}
 \label{def:dist}
 \begin{array}{l}
-	\left[
-		(\forall w \in L_1\backslash s) \cap M((L_1\backslash s) \parallel L_2) 
-		= \emptyset
-	\right].
+		M(s \parallel L_2) \cap M((L_1\backslash s) \parallel L_2)
+		= \emptyset.
+%   (\forall w \in L_1\backslash s)
+%   	\left[ M(w \parallel L_2) \cap M(s\parallel L_2) = \emptyset \right].
 \end{array}
 \end{equation}
 
