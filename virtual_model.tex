@@ -557,7 +557,7 @@ language $L$ if and only if:
 	(\exists \sigma \in s \mid \sigma \in \Sigma_1 \cap \Sigma_2)
 	\label{lem:obs1}
 	\\
-	(\forall t\sigma \in \overline{L_2})
+	(\forall t\sigma \in L_2)
 	\left[M_2(t) \neq \emptyset \right],
 	\label{lem:obs2}
 	\\
@@ -577,11 +577,11 @@ $M(w)= M_1(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
 (\ref{lem:obs1}) holds. Then may $\exists u \sigma \in \overline{w}$ such that
 $M_2(u) = \emptyset$, and then $M_2(P_2(u)) =
 \emptyset$ which contradicts (\ref{lem:obs2}). Now, let (\ref{lem:obs2})
-be true for all $t\sigma \in \overline{P_2(w)}$. Then the assumption $M(w)=
+be true for all $t\sigma \in P_2(w)$. Then the assumption $M(w)=
 M_1(s)$ holds only if $\sigma \not \in s$, which contradicts (\ref{lem:obs1}). 
 
 We prove necessity of (\ref{lem:obs}) by contradiction.
-Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in \overline{L_2}$ such that
+Let (\ref{lem:obs1}) holds, and $\exists t\sigma \in L_2$ such that
 $M_2(t) = \emptyset$. Then may $\exists t'\sigma \in 
 L \subseteq P_2^{-1}(t\sigma)$ such that $M_2(t') =
 \emptyset$ and $M_1(t') = M_1(s) \neq \emptyset$, which contradicts
@@ -598,8 +598,8 @@ an event in common with the language $L_2$, and all the strings of $L_2$ which
 have this common event have observable events in the prefixes, and some of the
 observable events in the prefixes are not common with $L_1$.
 
-We call the set of stings $t \in \overline{L_2}$ satisfying condition
-(\ref{lem:obs2}) as an \emph{adjacent observable support} for the given string
+We call the subset of stings $\{t \in L_2\}$ satisfying condition
+(\ref{lem:obs2}) as the \emph{adjacent observable support} for the given string
 $s \in L_1$.
 
 \begin{definition} Given two languages $L_1$ and $L_2$. We say that a string $s
@@ -620,8 +620,8 @@ in the language $L$ if the following holds true:
 \label{lem:distinguished}
 Given two languages $L_1$ and $L_2$. Assume that $L_1 = P_1(L)$. The string $s
 \in L_1$ is distinguished from $L_1\backslash s$ in the language $L$ if $s$ has
-an adjacent observable support $L_{2,s} \subseteq L_2$ wich satisfies the
-following condition:
+an adjacent observable support $L_{2,s} \subseteq L_2$ which
+satisfies the following condition:
 \end{lemma}
 \begin{subequations}
 \begin{align}
