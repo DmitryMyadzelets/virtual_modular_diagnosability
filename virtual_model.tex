@@ -554,7 +554,7 @@ language $L$ if and only if:
 \end{lemma}
 \begin{subequations}\label{lem:obs}
 \begin{align}
-	(\exists \sigma \in s \mid \sigma \in \Sigma_1 \cap \Sigma_2)
+	(\exists \sigma \in s \mid \sigma \in \Sigma_1 \cap \Sigma_2) \land
 	\label{lem:obs1}
 	\\
 	(\forall t\sigma \in L_2)
@@ -627,11 +627,12 @@ satisfies the following condition:
 \begin{subequations}
 \begin{align}
 	(\forall t \in L_{2,s})
-	(\exists \sigma \in t \mid \sigma \in \Sigma_1 \cap \Sigma_2)
+	\left[ \exists \sigma \in t \mid \sigma \in \Sigma_1 \cap \Sigma_2)\right]
+	\land
 	\label{lem:dist1}
 	\\
-	(\forall w \in L_1\backslash s)(\sigma \not \in w)
-	\label{lem:dist2}
+	(\forall w \in L_1\backslash s)\left[\sigma \not \in w \right]
+	\label{lem:dist2} \land
 	\\
 	(\forall t'\sigma \in \overline{t})
 	[M_2(t / t'\sigma) \neq \emptyset]
