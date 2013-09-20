@@ -284,8 +284,8 @@ L\}, ~i \in I$.
 
 
 \subsection{Architectures for on-line diagnosis}
-Architectures for on-line diagnosis of three tipes: centralized, decentralized
-and distributed, can be stuctured as follows.
+Architectures for on-line diagnosis of three types: centralized, decentralized
+and distributed, can be structured as follows.
 
 \subsubsection{Centralized}
 The structure is depicted in Figure \ref{fig_centralized}. In this architecture
@@ -611,7 +611,7 @@ in the language $L$ if the following holds true:
 \begin{array}{l}
 % 		M(s \parallel L_2) \cap M((L_1\backslash s) \parallel L_2)
 % 		= \emptyset.
-  (\forall w \in L_1\backslash s)
+  (\forall w \in L_1\backslash s)\\
   	\left[ MP_1^{-1}(w \parallel L_2) \cap MP_1^{-1}(s\parallel L_2) = \emptyset
   	\right].
 \end{array}
@@ -747,25 +747,30 @@ automaton depicted in the Figure
 \ref{fig:marking_L2}.
 
 Now we are ready to apply Lemma \ref{lem:distinguished} with respect to
-diagnosability property, but make some notes before. Intuitively, one
-would apply the conditions of the lemma for faulty and non-faulty
-languages. Recall, that faulty and non-faulty languages are disjoint.
-However, since the faulty language is not prefix-closed in general, its prefix
-can be a part of the prefix of the non-faulty language, i.e. $\overline{L_{i,f}}
-\cap L_{i,nf} \neq \emptyset$. Changing observability of the
-sublanguage $\overline{L_{i,f}} \cap L_{i,nf}$ has no effect for diagnosability.
-Hence, we exclude this sublanguage from the conditions verification
-procedure.
+diagnosability property, but make some notes before. Intuitively, one would
+apply the conditions of the lemma for faulty and non-faulty languages. Recall,
+that faulty and non-faulty languages are disjoint, but they may have common
+prefixes. This common sublanguage is defined as $\overline{L_{f}} \cap (L
+\backslash \overline{L_{f}})$. Changing observability of this sublanguage has no
+effect for diagnosability, and we can exclude it from a verification procedure.
+Thus, the non-faulty sublanguage disjoint to the all prefixes of the faulty
+language is defined as $L \backslash \overline{L_f}$, and the set of all
+prefixes of the faulty language disjoint to the above non-faulty sublanguage and
+to the common prefixes is defined as $\overline{L_f} \backslash (\overline{L_f}
+\cap (L \backslash \overline{L_f}))$.
 
 \begin{lemma}
 \label{lem:diagnosable}
 Given $L_1, L_2$, $L_{1,f} \subseteq L_1$ and $L_{1,nf} \subseteq L_1$. A
-language $L = L_1 \parallel L_2$ is diagnosable if $L_{1,f}$ or $L_{1,nf}
-\backslash \overline{L_{1,f}}$ has an observable support in $L_2$, which
-satisfies conditions \ref{lem:dist1}-\ref{lem:dist3}.
+language $L = L_1 \parallel L_2$ is diagnosable if the sublanguages
+$\overline{L_{1,f}} \backslash (\overline{L_{1,f}} \cap (L_i \backslash
+\overline{L_{1,f}}))$ and $L_{1} \backslash \overline{L_{1,f}}$ have
+distinguished observable supports in $L_2$.
+% , which satisfy conditions \ref{lem:dist1}-\ref{lem:dist3}.
 \end{lemma}
+The proof can be deduced from the Lemma \ref{lem:distinguished}. 
 
-Clearly, the automata depicted in Figures \ref{fig:marking_L2} and
+The automata depicted in Figures \ref{fig:marking_L2} and
 \ref{fig:marking_L1} can not be simply used in a procedure verifying
 diagnosability, since we should avoid the verification of $\overline{L_{1,f}}
 \backslash L_{1,f}$ and $L_{1,nf} \backslash \overline{L_{1,f}}$. We leave
@@ -773,34 +778,6 @@ development of such procedure for future work. However, the automata can be
 used to demonstrate the approach in a trivial case, as it is shown in the next
 section.
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\section{Example}
-\label{sec:Example}
-
-Consider the system of two automata $G_1$ and $G_2$ depicted in Figure
-\ref{fig:G1} and Figure \ref{fig:G2}. The set of events for the system is
-$\Sigma = \{a, b, c, e, f\}$. Suppose the observable events are $\Sigma_o = \{c,
-e\}$, and the set of faut events is $\{f\}$. Thus, only the language $L_1$ has a
-fault, and $L_2$ has not. We use the verifier \cite{yoo_polynomial-time_2002} to
-check if a language is diagnosable. The verifier for the language $L_1$ is
-depicted in the Figure \ref{fig:verifier_G1}. One can check that it has an
-indeterminate cycle.
-The strings $fbc^*$ and $ac^*$ are not distinguashable in the local language
-$L_1$. Hence, $L_1$ is not locally diagnosable.
-
-We now use the verification procedure described in this paper to check if the
-language $L_2$ can changes observation of either strings $fbc^*$ or
-$ac^*$ in the language $L_1 \parallel L_2$ such that the strings become
-distinguashable. The set of events common for $L_1$ and $L_2$ is $\{b, c\}$. It
-can be verified that only the strings $fbc^*$ are marked by the automaton
-depicted in the Figure \ref{fig:marking_L1}. Next, it can be verified that all
-the strings of $L_2$ which have events common with the strings $fbc^*$ are
-accepted by the automaton depicted in the Figure \ref{fig:marking_L2}. Thus, we
-conclude that $L_2$ changes observation of the strings $fbc^*$ in the virtual
-module $G$ built of modules $G_1$ and $G_2$, such that $G$ becomes diagnosable.
-Indeed, if we make a parallel composition of the modules and build a verifier
-for the result as it is depicted in the Figure \ref{fig:verifier_G1G2}, it can
-be checked that the verifier has no indeterminate cycles.
 
 \begin{figure}[t]
 \centering
@@ -853,6 +830,37 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 \caption{Automaton $G_2$}
 \label{fig:G2}
 \end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Example}
+\label{sec:Example}
+
+Consider the system of two automata $G_1$ and $G_2$ depicted in Figure
+\ref{fig:G1} and Figure \ref{fig:G2}. The set of events for the system is
+$\Sigma = \{a, b, c, e, f\}$. Suppose the observable events are $\Sigma_o = \{c,
+e\}$, and the set of fault events is $\{f\}$. Thus, only the language $L_1$ has a
+fault, and $L_2$ has not. We use the verifier \cite{yoo_polynomial-time_2002} to
+check if a language is diagnosable. The verifier for the language $L_1$ is
+depicted in the Figure \ref{fig:verifier_G1}. One can check that it has an
+indeterminate cycle.
+The strings $fbc^*$ and $ac^*$ are not distinguishable in the local language
+$L_1$. Hence, $L_1$ is not locally diagnosable.
+
+We now use the verification procedure described in this paper to check if the
+language $L_2$ can changes observation of either strings $fbc^*$ or
+$ac^*$ in the language $L_1 \parallel L_2$ such that the strings become
+distinguishable. The set of events common for $L_1$ and $L_2$ is $\{b, c\}$. It
+can be verified that only the strings $fbc^*$ are marked by the automaton
+depicted in the Figure \ref{fig:marking_L1}. Next, it can be verified that all
+the strings of $L_2$ which have events common with the strings $fbc^*$ are
+accepted by the automaton depicted in the Figure \ref{fig:marking_L2}. Thus, we
+conclude that $L_2$ changes observation of the strings $fbc^*$ in the virtual
+module $G$ built of modules $G_1$ and $G_2$, such that $G$ becomes diagnosable.
+Indeed, if we make a parallel composition of the modules and build a verifier
+for the result as it is depicted in the Figure \ref{fig:verifier_G1G2}, it can
+be checked that the verifier has no indeterminate cycles.
+
 
 % It is a nice looking version of the verifier below, but its caption
 % disappears when the Figure is shown. Strange...
@@ -1007,7 +1015,7 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 % \end{figure}
 
 
-\addtolength{\textheight}{-0.5cm}
+% \addtolength{\textheight}{-0.6cm}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Conclusion}
 \label{sec:Conclusion}
