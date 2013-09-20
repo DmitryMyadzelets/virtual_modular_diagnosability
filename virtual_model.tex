@@ -49,7 +49,7 @@ University of Bologna, Viale Pepoli 3/2, 40123, Bologna, Italy}
 
 \begin{abstract}
 This paper introduces an approach to achieve the modular diagnosability property
-of a system by combining existing modules into new modules wich we call virtual
+of a system by combining existing modules into new modules which we call virtual
 modules. A non-compositional analysis of the system is introduced, as a
 preliminary step for the process of verification of the modular diagnosability
 property. The analysis aimed to reduce the overall computational expenses. An
@@ -103,8 +103,8 @@ The approaches aimed to solve the problem of diagnosability verification
 consider different architectures of DES and differ with respect to which of the
 above implications they take into account. Either they require an entire model
 of the system or not, what information is presented to each observation spot if
-any, and etc. In this paper we use a classificaton as in
-\cite{su_global_2005} where an approache is one of \emph{centralized},
+any, and etc. In this paper we use a classification as in
+\cite{su_global_2005} where an approach is one of \emph{centralized},
 \emph{decentralized} or \emph{distributed}.
 
 The centralized approach was presented in \cite{sampath_diagnosability_1995}.
@@ -451,17 +451,17 @@ for the problem.}, i.e.
 Recall the Definition \ref{def:fault_is_diag} of the diagnosable fault. If a
 module is not diagnosable locally then exist at least two strings in its
 language, one is faulty and one is not, with the same observation of arbitrary
-length, i.e. the strings are \emph{not distinguashable}. This
+length, i.e. the strings are \emph{not distinguishable}. This
 indistinguishability can disappear if and only if:
-$a)$ at least one string can be not in its language due to concurency with other
-module, and then the strings would be distinguashable locally - the verification
+$a)$ at least one string can be not in its language due to concurrency with other
+module, and then the strings would be distinguishable locally - the verification
 of the modular diagnosability property is devoted to find if this is the case;
 $b)$ indistinguishability is broken globally by interleaving sequences of the
 module's events with observable events of other modules. The later case is
 expressed in the following conjecture:
 \begin{conjecture} Given two modules with languages $L_1$ and $L_2$, and the
 global language of the system $L = L_1 \parallel L_2$. Suppose there is only one
-faulty string $s \in L_1$ such that it is not distinguashable from at least one
+faulty string $s \in L_1$ such that it is not distinguishable from at least one
 string of $L_1\backslash s$. Thus, $L_1$ is not locally diagnosable. Suppose the
 system is not modular diagnosable. Then the global language $L$ is diagnosable
 only if all the strings $t \in P_1^{-1}(s)$ change their observation due to 
@@ -469,7 +469,7 @@ the composition with the language $L_2$.
 \end{conjecture}
 
 The above conjecture gives the insight into the underlining idea of our
-approach. If we find a module which makes the faulty string distinguashable
+approach. If we find a module which makes the faulty string distinguishable
 then the composition of that module with a faulty one would result in a new
 module satisfying the property of local diagnosability, thus improving
 the modular diagnosability property of the system. In the following section we
@@ -485,9 +485,9 @@ provide a formal description of the problem.
 \label{sec:Proposal}
 
 Our goal is to have the system modularly diagnosable. If the initial modularity
-does not satisfy the property of modular diagnosability we assume that the set
-of modules can be partitioned such that all the modules in each partition can be
-considered as a \emph{virtual module}, and the system with the new modularity
+does not satisfy the property of modular diagnosability then we assume that the
+set of modules can be partitioned such that the all modules in each partition
+can be considered as a \emph{virtual module}, and the system with the new modularity
 satisfies the property of modular diagnosability.
 
 \begin{definition}[Diagnosability of virtual modules] 
@@ -521,7 +521,7 @@ sets of other modules, compose all the languages from each set with the faulty
 language, and check the resulting language for modular diagnosability.
 Such process is computationally expensive, since the number of possible
 partitions $J$ is exponential with respect to the cardinality of $I$. However,
-not each module can change diagnosability. We can significally decrease the
+not each module can change diagnosability. We can significantly decrease the
 complexity by selecting only the modules which can probably change
 diagnosability. For this purpose a procedure to check if an arbitrary module
 potentially can change diagnosability, is required.
@@ -572,7 +572,7 @@ In order to prove sufficiency of (\ref{lem:obs}) we use its converse relation
 and prove by contradiction that the change of observation (\ref{def:obs}) is
 necessary.
 Assume $\exists w \in L$ and $\exists s \in L_1$ such that
-$M(w)= M_1(s)$ and, hanceforce, (\ref{def:obs}) is false. Let $\exists
+$M(w)= M_1(s)$ and, therefor, (\ref{def:obs}) is false. Let $\exists
 \sigma \in \Sigma_1 \cap \Sigma_2$ such that $\sigma \in w$ and also
 (\ref{lem:obs1}) holds. Then may $\exists u \sigma \in \overline{w}$ such that
 $M_2(u) = \emptyset$, and then $M_2(P_2(u)) =
@@ -609,10 +609,11 @@ in the language $L$ if the following holds true:
 \begin{equation}
 \label{def:dist}
 \begin{array}{l}
-		M(s \parallel L_2) \cap M((L_1\backslash s) \parallel L_2)
-		= \emptyset.
-%   (\forall w \in L_1\backslash s)
-%   	\left[ M(w \parallel L_2) \cap M(s\parallel L_2) = \emptyset \right].
+% 		M(s \parallel L_2) \cap M((L_1\backslash s) \parallel L_2)
+% 		= \emptyset.
+  (\forall w \in L_1\backslash s)
+  	\left[ MP_1^{-1}(w \parallel L_2) \cap MP_1^{-1}(s\parallel L_2) = \emptyset
+  	\right].
 \end{array}
 \end{equation}
 
@@ -645,8 +646,8 @@ Assume (\ref{def:dist}) is false, i.e. $\exists w' \in P_1^{-1}(w)$ and $\exists
 s' \in P_1^{-1}(s)$ such that $M(w') = M(s')$. 
 
 Assume (\ref{lem:dist1}) and (\ref{lem:dist2}) hold. Then may $\exists t' \in
-\overline{s'} \mid t' \in P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t =
-P_2(t')$ such that $M_2(t) = M_2(w)$. And may $\exists t'' \in \overline{t}$
+\overline{s'} \mid t' \in P_2^{-1}(L_{2,s})$ such that $M(t') = M(w')$, and $t
+\in P_2(t')$ such that $M_2(t) = M_2(w)$. And may $\exists t'' \in \overline{t}$
 such that $M_2(t'') = M_2(w)$. Since $\sigma \in t$ and $\sigma \not \in w$,
 then $M(t \backslash t''\sigma) = \emptyset$ for any $t''\sigma \in
 \overline{t}$, which contradicts (\ref{lem:dist3}).
@@ -657,12 +658,12 @@ M(P_1^{-1}(s))$ there exists $\sigma \in s'$, which contradicts
 (\ref{lem:dist2}).
 
 Assume (\ref{lem:dist2}) and (\ref{lem:dist3}) hold. If (\ref{def:dist}) is
-false, then (\ref{lem:dist1}) is false. However, (\ref{lem:dist3}) is suffucient
+false, then (\ref{lem:dist1}) is false. However, (\ref{lem:dist3}) is sufficient
 for (\ref{lem:dist1}), which contradicts the former statement.
 \end{proof}
 
-Informally, the above lemma says that a string $s$ becomes distinguashable from
-the other strings $L_1\backslash s$ in the global language, when the occurence
+Informally, the above lemma says that a string $s$ becomes distinguishable from
+the other strings $L_1\backslash s$ in the global language, when the occurrence
 of events from the observable support happens only in $P^{-1}(s)$ due to
 common events. Thus, whenever we observe events of the observable support of
 $L_2$, we are sure the string $s$ in $L_1$ is being executed.
@@ -722,13 +723,12 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 \label{fig:marking_L1}
 \end{figure}
 
-As it was discussed in the Section \ref{sec:Diagnosability}, indistingushability
-can be changed either by blocking the string in the local language due to
-concurrency or by interleaving with observable events in other languages. Under
-assumption that the all strings are not affected by concurrency, i.e. $L_1 =
-P_1(L)$ we can state that the conditions of Lemma \ref{lem:distinguished} are
-also necessary for changing distinguishability. For the sake of brevity no proof is
-provided here.
+As it was discussed in the Section \ref{sec:Diagnosability},
+indistinguishability can be changed either by blocking the string in the local
+language due to concurrency, or by interleaving with observable events from
+other languages. Under assumption that the all strings are not affected by
+concurrency, i.e. $L_1 = P_1(L)$ we can deduce, that the conditions of Lemma
+\ref{lem:distinguished} are also necessary for changing distinguishability. 
 
 The Figure \ref{fig:marking_L2} depicts an automaton which
 accepts the sublanguage of $L_2$ satisfying conditions (\ref{lem:obs1}),
@@ -737,10 +737,10 @@ The Figure \ref{fig:marking_L1} depicts an automaton which
 marks a sublanguage of $L_1$ satisfying conditions (\ref{lem:obs1}) and
 (\ref{lem:dist1}). 
 
-A procedure verifying if a string $s \in L_1$ is distinguashable in the global
+A procedure verifying if a string $s \in L_1$ is distinguishable in the global
 language $L$ consists of two steps. First, the string $s$ should be marked by
-the automaton depicted in the Figure \ref{fig:marking_L1}. The set of common
-events $\Sigma_1 \cap \Sigma_2$ is reduced to the set of events causing
+the automaton depicted in the Figure \ref{fig:marking_L1}. Then the set of
+common events $\Sigma_1 \cap \Sigma_2$ is reduced to the set of events causing
 transitions in the automaton. Second, all the continuations of the strings of
 the language $L_2$ which have these common events should be accepted by the
 automaton depicted in the Figure
@@ -749,12 +749,12 @@ automaton depicted in the Figure
 Now we are ready to apply Lemma \ref{lem:distinguished} with respect to
 diagnosability property, but make some notes before. Intuitively, one
 would apply the conditions of the lemma for faulty and non-faulty
-languages. Recall also, that faulty and non-faulty languages are disjoint.
+languages. Recall, that faulty and non-faulty languages are disjoint.
 However, since the faulty language is not prefix-closed in general, its prefix
 can be a part of the prefix of the non-faulty language, i.e. $\overline{L_{i,f}}
 \cap L_{i,nf} \neq \emptyset$. Changing observability of the
 sublanguage $\overline{L_{i,f}} \cap L_{i,nf}$ has no effect for diagnosability.
-Nence, we exclude this sublanguage from the conditions verification
+Hence, we exclude this sublanguage from the conditions verification
 procedure.
 
 \begin{lemma}
@@ -769,7 +769,7 @@ Clearly, the automata depicted in Figures \ref{fig:marking_L2} and
 \ref{fig:marking_L1} can not be simply used in a procedure verifying
 diagnosability, since we should avoid the verification of $\overline{L_{1,f}}
 \backslash L_{1,f}$ and $L_{1,nf} \backslash \overline{L_{1,f}}$. We leave
-development of such procedure for furture work. However, the automata can be
+development of such procedure for future work. However, the automata can be
 used to demonstrate the approach in a trivial case, as it is shown in the next
 section.
 
@@ -1014,16 +1014,16 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 
 In this paper we introduced a notion of virtual modules for DES, and proposed a
 new definition of modular diagnosability by virtual modules. The approach
-suggestes to combine the existing modules of the system into virtual modules in
+suggests to combine the existing modules of the system into virtual modules in
 a way that the system with the new modularity is modular diagnosable.
 
 We introduced a non-compositional analysis of the system's modules, which allows
-to verifiy if one module may change its observation by composition with others,
-and if another module can change the obsevation of other modules. We defined
-correspondent suffucient and necessary conditions for the modules' languages. If
+to verify if one module may change its observation by composition with others,
+and if another module can change the observation of other modules. We defined
+correspondent sufficient and necessary conditions for the modules' languages. If
 the languages satisfy those conditions then one can state that the system can
 be made modular diagnosable by creating virtual modules.
-The suggested verificaion procedure has linear complexity with respect to the
+The suggested verification procedure has linear complexity with respect to the
 number of states of a module.
 
 We leave for the future work the problem of defining criteria of how to select
