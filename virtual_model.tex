@@ -50,7 +50,7 @@ University of Bologna, Viale Pepoli 3/2, 40123, Bologna, Italy}
 \begin{abstract}
 This paper introduces an approach to achieve the modular diagnosability property
 of a system by combining existing modules into new modules which we call virtual
-modules. A non-compositional analysis of the system is introduced, as a
+modules. A structural analysis of the system is introduced, as a
 preliminary step for the process of verification of the modular diagnosability
 property. The analysis aimed to reduce the overall computational expenses. An
 example of the approach is included.
@@ -138,7 +138,7 @@ diagnosis procedure assumes that observation spots can not communicate. We
 investigate the case when the system is not modular diagnosable initially, but
 the modules of the system can be composed into \emph{virtual} modules in order
 to force the modular diagnosability property. We study how to chose the system's
-modules for the composition. For this goal a non-compositional analysis of the
+modules for the composition. For this goal a structural analysis of the
 system is introduced.
 As the starting point we consider the definition of modular diagnosability
 property and the correspondent verification algorithm from
@@ -481,7 +481,7 @@ provide a formal description of the problem.
 % existence of unobservable cycles.
 
 
-\section{Virtual Modules and Non-Compositional Analysis}
+\section{Virtual Modules and structural Analysis}
 \label{sec:Proposal}
 
 Our goal is to have the system modularly diagnosable. If the initial modularity
@@ -1026,7 +1026,7 @@ new definition of modular diagnosability by virtual modules. The approach
 suggests to combine the existing modules of the system into virtual modules in
 a way that the system with the new modularity is modular diagnosable.
 
-We introduced a non-compositional analysis of the system's modules, which allows
+We introduced a structural analysis of the system's modules, which allows
 to verify if one module may change its observation by composition with others,
 and if another module can change the observation of other modules. We defined
 correspondent sufficient and necessary conditions for the modules' languages. If
@@ -1055,7 +1055,7 @@ partition of the set of the modules can be, and generalization of the problem.
 % 
 % \subsection{}
 % \begin{enumerate}
-%   \item Do not consider non-compositional analysis first;
+%   \item Do not consider structural analysis first;
 %   \item Global consistency = local observations after the parallel
 %   composition, $\{ P_{I,i}(\parallel_{j \in I}M_i)\}$;    
 %   
@@ -1066,7 +1066,7 @@ partition of the set of the modules can be, and generalization of the problem.
 % following questions should be answered:
 % \begin{enumerate}
 %   \item Is there a way to analyse the system with respect to diagnosability with
-%   no composition involved (non-compositional analysis)?
+%   no composition involved (structural analysis)?
 %   \item Given a non-diagnosable module and an adjacent one, should we take
 %   the last one as a candidate for the composition?
 %   \item If we have two modules can be taken which might be preferred to be
@@ -1075,8 +1075,8 @@ partition of the set of the modules can be, and generalization of the problem.
 % 
 % Answers are given in the sequel.
 % 
-% % \section{Non-compositional analysis}
-% % Non-compositional analysis should be the fist necessary step
+% % \section{structural analysis}
+% % structural analysis should be the fist necessary step
 % % to decide whether the system is not-diagnosable, before we start potentially more
 % % computationally expensive compositional analysis. This step can be found in
 % % some works but it is not considered as a separate topic there. A couple of works
@@ -1086,11 +1086,11 @@ partition of the set of the modules can be, and generalization of the problem.
 % % aimed to decide in an incremental fashion if a global system is diagnosable. In
 % % the Theorem 3.1 they state that the system is diagnosable if each module is
 % % diagnosable. In the authors' verification algorithm the first step may be
-% % referred as to the non-compositional analysis. The step can be describe as
+% % referred as to the structural analysis. The step can be describe as
 % % follows: for each module check if it has indeterminate cycle in its diagnoser.
 % % If there is no such cycle then the system is diagnosable. 
 % % 
-% % The non-compositional analysis equal to the above is presented in the work
+% % The structural analysis equal to the above is presented in the work
 % % \cite{contant_diagnosability_2006}. The authors study modular diagnosability,
 % % and criteria for the system to be non-diagnosable is the existence of
 % % an indeterminate cycle. They establish the following results: 
@@ -1100,13 +1100,13 @@ partition of the set of the modules can be, and generalization of the problem.
 % % monolithic diagnoser does not contain an indeterminate cycle; and 
 % % (c) if an indeterminate cycle exists in a local diagnoser then it may or may not
 % % exist in the monolithic diagnoser''.
-% % The cases (a) and (b) can be referred as to the non-compositional analysis, and
+% % The cases (a) and (b) can be referred as to the structural analysis, and
 % % the correspondent step of checking each module for an indeterminate
 % % cycle in its diagnoser is provided by the authors in the Algorithm 1.
 % % 
-% % It can be seen from the above, that the non-compositional analysis has
+% % It can be seen from the above, that the structural analysis has
 % % been limited only for checking of indeterminate cycle. In the following we
-% % extend the non-compositional analysis and provide additional conditions for
+% % extend the structural analysis and provide additional conditions for
 % % diagnosability. Firstly we consider analysis of a module the faulty
 % % behavior originates from, then we consider analysis of its adjacent modules.  
 % 
@@ -1238,7 +1238,7 @@ partition of the set of the modules can be, and generalization of the problem.
 % \end{equation}
 % \end{corollary}
 % 
-% \begin{example} This example shows how the non-compositional analysis might be
+% \begin{example} This example shows how the structural analysis might be
 % organised.
 % Lets consider the languages depicted in Figure \ref{fig_automaton_F-NF}.
 % Assume the language presents one module of the system, and that other modules
@@ -1315,7 +1315,7 @@ partition of the set of the modules can be, and generalization of the problem.
 % % At each increment of the composition only a module which has events in common
 % % with the above projection is involved. 
 % 
-% A basic idea for non-compositional analysis of two modules is to create a
+% A basic idea for structural analysis of two modules is to create a
 % property for modules which can be verified by a procedure with computational
 % complexity lower then exponential. In the criteria mentioned above, the
 % existence of common events is the one property like that. It is simple but
