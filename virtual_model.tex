@@ -105,32 +105,16 @@ above implications they take into account. Either they require an entire model
 of the system or not, what information is presented to each observation spot if
 any, and etc. In this paper we use a classification as in
 \cite{su_global_2005} where an approach is one of \emph{centralized},
-\emph{decentralized} or \emph{distributed}.
-
-The centralized approach was presented in \cite{sampath_diagnosability_1995}.
-The authors consider a DES presented by one module, and they assume that all the
-observations can be performed at one site. The diagnosability analysis of this
-architecture is called the verification of centralized diagnosability. The paper
-presents a procedure for such verification. Complexity of the procedure was
-later improved in \cite{jiang_polynomial_2001} and
-\cite{yoo_polynomial-time_2002}.
-
-The decentralized approach, according to the above classification, exploits the
-entire model built from its modules, and several local sites performing
-observations. The sites may communicate in order to make a decision if a fault
-has occurred. This architecture is presented in \cite{debouk_coordinated_1998},
-\cite{qiu_decentralized_2006}, \cite{wang_diagnosis_2007} and others.
-
-The distributed approach does not require to built the entire model of the
-system. The architecture implies that the system has a set of observation spots,
-and each spot observes only one module of the system. A communication among
-observation spots is possible in order to make a decision about a fault
-occurrence. The correspondent verification procedure checks if this architecture
-is possible to apply for the given system. Such approach is presented in
-\cite{su_distributed_2002}. The notion of modular diagnosability introduced in
-\cite{contant_diagnosability_2006} meets the same architectural implications,
-and we refer it as to the distributed diagnosability when the observation spots
-do not communicate to each other.
+\emph{decentralized} or \emph{distributed}. The centralized approach is
+presented in \cite{sampath_diagnosability_1995}, and its complexity was 
+improved in \cite{jiang_polynomial_2001} and \cite{yoo_polynomial-time_2002}.
+The decentralized approach can be found in \cite{debouk_coordinated_1998},
+\cite{pencole_formal_2005}, \cite{qiu_decentralized_2006},
+\cite{wang_diagnosis_2007} and others.
+The distributed approach is presented in \cite{su_distributed_2002}, and a
+related notion of modular diagnosability is introduced in
+\cite{contant_diagnosability_2006}. We review the all approaches in the next
+section.
 
 In this paper we consider the distributed approach for a DES with modular
 structure, i.e. no entire model of the system is presented and the fault
@@ -288,25 +272,30 @@ Architectures for on-line diagnosis of three types: centralized, decentralized
 and distributed, can be structured as follows.
 
 \subsubsection{Centralized}
-The structure is depicted in Figure \ref{fig_centralized}. In this architecture
-the global language is built by the parallel composition and then the diagnoser
-$D$ introduced in \cite{sampath_diagnosability_1995} for the global language is
-constructed. Upon the current state of the diagnoser a decision on the fault
-occurrence is made.
+A DES is presented by one module, and it is assumed that all the observations
+and diagnosis can be performed at one site. The structure is depicted in Figure
+\ref{fig_centralized}. In this architecture the global language is built by the
+parallel composition and then the diagnoser $D$
+\cite{sampath_diagnosability_1995} for the global language is constructed. Upon
+the current state of the diagnoser a decision on the fault occurrence is made.
 
 \subsubsection{Decentralized}
-In the approach only local diagnosers are built.
-The diagnosers provide a necessary information (a protocol) to a central
-decision node. The diagnosers do not communicate to each other. This
-architecture is depicted in Figure \ref{fig_decentralized}.
-Notable works on decentralized architecture are
-\cite{debouk_coordinated_1998},
-\cite{contant_diagnosability_2006} and \cite{wang_diagnosis_2007}.
+This approach exploits the entire model built from its modules. The several
+local sites performing observations, and only local diagnosers are built. The
+diagnosers do not communicate to each other, but provide necessary information
+(a protocol) to a central decision node. This architecture is depicted in Figure
+\ref{fig_decentralized}.
 
 \subsubsection{Distributed}
 The architecture is depicted in Figure \ref{fig_distributed}.
-Examples of a correspondent approach can be found in
-\cite{pencole_formal_2005} and \cite{schumann_decentralised_2010}.
+The distributed approach does not require to built the entire model of the
+system. The architecture implies that the system has a set of observation spots,
+and each spot observes only one module of the system. A communication among
+observation spots is possible in order to make a decision about a fault
+occurrence. The correspondent verification procedure checks if this architecture
+is possible to apply for the given system. The notion of modular diagnosability
+meets the same architectural implications, and we refer it as to the distributed
+diagnosability when the observation spots do not communicate to each other.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -487,8 +476,8 @@ provide a formal description of the problem.
 Our goal is to have the system modularly diagnosable. If the initial modularity
 does not satisfy the property of modular diagnosability then we assume that the
 set of modules can be partitioned such that the all modules in each partition
-can be considered as a \emph{virtual module}, and the system with the new modularity
-satisfies the property of modular diagnosability.
+can be considered as a \emph{virtual module}, and the system with the new
+modularity satisfies the property of modular diagnosability.
 
 \begin{definition}[Diagnosability of virtual modules] 
 Let $I = \{1,2,\ldots,n\} \subset  \mathbb{N}$ be an index set, and $J$ be a
