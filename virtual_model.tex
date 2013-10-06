@@ -1,5 +1,9 @@
+% 
+% Submission details: http://www.ecc14.eu/call-for-papers.html
+% 
 % \documentclass[a4paper,oneside]{article}
-\documentclass[a4paper, 10pt, conference]{ieeeconf}
+% \documentclass[a4paper, 10pt, conference]{ieeeconf}
+\documentclass[letterpaper, 10pt, conference]{ieeeconf}
 \IEEEoverridecommandlockouts
  % This command is only
   % needed if you want
@@ -9,8 +13,8 @@
 % See the \addtolength command later in the file to balance the column lengths
 % on the last page of the document
 
-\usepackage[pdftex, pdftitle={DiagnosabilityVerification of Discrete-Event
-Systems}, pdfauthor={Dmitry Myadzelets}, bookmarks=false,
+\usepackage[pdftex, pdftitle={Virtual Modules in Discrete-Event Systems: Achieving
+Modular Diagnosability}, pdfauthor={Dmitry Myadzelets}, bookmarks=false,
 % colorlinks=true, linkcolor=black
 ]{hyperref}
 
@@ -25,7 +29,8 @@ Systems}, pdfauthor={Dmitry Myadzelets}, bookmarks=false,
 
 \title{Virtual Modules in Discrete-Event Systems: \\ Achieving
 Modular Diagnosability} \author{Dmitry Myadzelets$^{*,1,2}$, Andrea
-Paoli$^{1,3}$ \\ \today
+Paoli$^{1,3}$  
+--- Draft --- \today
 \thanks{$^{1}$Center for Research on Complex Automated Systems (CASY), DEI,
 University of Bologna, Viale Pepoli 3/2, 40123, Bologna, Italy}
 	\thanks{$^{2}$E-mail: {dmitry.myadzelets@gmail.com}}
@@ -43,17 +48,20 @@ University of Bologna, Viale Pepoli 3/2, 40123, Bologna, Italy}
  	\includegraphics[height=10mm]{EU_flag.eps}
  	& \vspace{-10mm} \footnotesize
  	$^{*}$With the support of the Erasmus Mundus Action 2 programme of the
- 	European Union.
+ 	European Union
 \end{tabular}
 \end{figure}
 
 \begin{abstract}
-This paper introduces an approach to achieve the modular diagnosability property
-of a system by combining existing modules into new modules which we call virtual
-modules. A structural analysis of the system is introduced, as a
-preliminary step for the process of verification of the modular diagnosability
-property. The analysis aimed to reduce the overall computational expenses. An
-example of the approach is included.
+The paper considers modular discrete-event systems which are not modular
+diagnosable by design. We introduce an approach to achieve this property
+combining existing modules into new virtual modules. An underlining mathematical
+problem is to find a partition of a set, such that the partition satisfies the
+required property. The time complexity of such problem is very high.
+To overcome it, the paper introduces a structural analysis of the system's
+modules. In the analysis we focus on the case when the modules participate in
+diagnosis with their observations, rather then the case when indistinguishable
+observations are blocked due to concurrency.
 \end{abstract}
 
 \begin{keywords}
@@ -76,63 +84,68 @@ Discrete Event Systems, Modular Structure, Distributed Diagnosability
 
 Discrete-Event Systems (DES) has successfully concurred significant area in the
 systems engineering discipline due to their enormous capabilities of designing
-and managing complex projects. While ``real-world'' systems are growing in scale
+and managing complex systems. While ``real-world'' systems are growing in scale,
 the solutions provided by DES have to evolve to tackle the increasing complexity
 issues. For that reason the development of solutions relying on the fact that
 the most of complex systems have naturally modular structure has been under
-focus for the last two decades. Particularly, the task of design verification and
-diagnosis with respect to undesired behaviour, commonly refereed as to faulty
-behaviour of discrete systems, has a fairly developed theory nowadays.
+focus for the last two decades. Particularly, the task of design verification
+and diagnosis with respect to undesired behaviour, commonly refereed as to
+faulty behaviour of discrete systems, has a fairly developed theory nowadays.
 In this paper we consider the automata framework for diagnosability analysis,
-where a behaviour of DES is modeled by regular language and is represented
-by automata.
+where a behaviour of DES is modeled by regular languages and represented by
+automata.
 
-Diagnosability analysis includes a verification if one can detect if the system
-executes a faulty behaviour, i.e. a fault occurred, and a verification if one
+Diagnosability analysis requires to verify if one can detect if the system
+executes a faulty behaviour, i.e. a fault occurred, and to verify if one
 can isolate a certain type of fault from other faults. This analysis implies
-that the system's behaviour can be observed only partially. In DES built from more
-then one modules it may be necessary to verify if the faults originated from one
-module can be detected by observing only the same module, or by observing only
-other modules, or under other implications with respect to the possible flow of
-observations and their derivatives. Moreover, the verification of a modular
-system is preferred to be done without composing its entire model from the
-system's components since such composition may be not even feasible to perform
-due to the correspondent computational expenses.
+that the system's behaviour can be observed only partially. In DES built from
+more then one modules it may be necessary to verify if the faults originated
+from one module can be detected by observing only the same module, or by
+observing only other modules, or under other implications with respect to the
+possible flow of observations. Moreover, the verification of a modular system is
+preferred to be done without composing its entire model from the system's
+components since such composition may be not even feasible to perform due to 
+correspondent high computational burden.
 
 The approaches aimed to solve the problem of diagnosability verification
-consider different architectures of DES and differ with respect to which of the
-above implications they take into account. Either they require an entire model
-of the system or not, what information is presented to each observation spot if
-any, and etc. In this paper we use a classification as in
-\cite{su_global_2005} where an approach is one of \emph{centralized},
+consider different architectures of DES and differ with respect to some
+implications they take into account, i.e. either they require an entire model of
+the system or not, what information is presented to each observation spot if any,
+and etc. In this paper we use a classification as in \cite{su_global_2005} where
+an approach diagnosability approach can be \emph{centralized},
 \emph{decentralized} or \emph{distributed}. The centralized approach is
-presented in \cite{sampath_diagnosability_1995}, and its complexity was 
-improved in \cite{jiang_polynomial_2001} and \cite{yoo_polynomial-time_2002}.
+presented in \cite{sampath_diagnosability_1995} and, with improved complexity,
+in \cite{jiang_polynomial_2001} and \cite{yoo_polynomial-time_2002}.
 The decentralized approach can be found in \cite{debouk_coordinated_1998},
 \cite{pencole_formal_2005}, \cite{qiu_decentralized_2006},
 \cite{wang_diagnosis_2007} and others.
 The distributed approach is presented in \cite{su_distributed_2002}, and a
 related notion of modular diagnosability is introduced in
-\cite{contant_diagnosability_2006}. We review the all approaches in the next
-section.
+\cite{contant_diagnosability_2006}. We briefly review all the approaches in the
+next section.
 
-In this paper we consider the distributed approach for a DES with modular
-structure, i.e. no entire model of the system is presented and the fault
-diagnosis procedure assumes that observation spots can not communicate. We
-assume that the systems' modules are given by its designer. The design may
-reflect a physical or functional structure of the system, or have other
-underlining design principals, which makes the modules \emph{natural} for the
-designer.
+The original contribution of this paper can be summarized as follows. We
+consider the distributed approach for a DES with modular structure, i.e. no
+entire model of the system is presented and the fault diagnosis procedure
+assumes that observation spots can not communicate. As the starting point we
+consider the definition of modular diagnosability property and the correspondent
+verification algorithm from \cite{contant_diagnosability_2006}. We assume that
+the systems' modules are given by its designer. The design may reflect a
+physical or functional structure of the system, or may follow other underlining
+design principals, which make the modules \emph{natural} for the designer.
 Thus, we assume that preserving the systems' modularity as close to the initial
 structure as possible is required. We investigate the case when the system is
 not modular diagnosable initially, but the modules of the system can be composed
 into new \emph{virtual} modules in order to force the modular diagnosability
 property. We study how to chose the system's modules for the composition. For
-this goal a structural analysis of the system is introduced.
-As the starting point we consider the definition of modular diagnosability
-property and the correspondent verification algorithm from
-\cite{contant_diagnosability_2006}. As far as we know no approach similar to our
-has been published.
+this goal a structural analysis of the system is introduced. 
+
+We refer to \cite{ye_optimized_2010} as to one of the resent works addressing
+diagnosability problem for distributed approach. The work introduces a notion of
+\emph{regional diagnosability} exploiting a subset of the modules. The authors
+do not address modular diagnosability property, however, we may consider this
+work as similar due the correlated notion, and optimisation techniques, which
+can be applied in our approach.
 
 This paper is organized as follows. Section \ref{sec:Preliminaries} covers the
 necessary notation and describes the diagnosability problem. Section
@@ -226,81 +239,88 @@ directions for further research.
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Preliminaries}
 \label{sec:Preliminaries}
-The notation used in this document is adopted from
+
+\subsection{Notation}
+The notation used in this document is the one in
 \cite{cassandras_introduction_2010}.
 Let $\Sigma$ be a finite set of events. A sequence of events is a string.
 $\Sigma^*$ denotes a set of all finite strings over $\Sigma$.
 $L\subseteq\Sigma^*$ is a language over $\Sigma$. Given strings $s$ and $t$,
 $st$ is their concatenation. Given strings $s$ and $w$, $w$ is a prefix of $s$
 if exists $t$ such that $wt = s$. Prefix closure of $L$, denoted by
-$\overline{L}$ is a set of all prefixes of all strings in $L$.
+$\overline{L}$ is a set of all prefixes of all the strings in $L$.
 If $\overline{L} = L$ then $L$ is prefix-closed. The post language of $L$ after
-a string $s$ is denoted as $L/s$, i.e. $L/s = \{t\mid st \in L\}$. We
+a string $s$ is denoted as $L/s$, i.e. $L/s := \{t\mid st \in L\}$. We
 write $\sigma \in s$ if the event $\sigma \in \Sigma$ appears in the string $s
 \in \Sigma^*$. If $\{s\}$ is a singleton, we write $s$ for operations on
 languages.
 
-An automaton $G$ is a tuple $$G=(X,\Sigma,\Delta,x_0, X_m),$$ where $X$ is a
-set of states, $x_0 \in X$ is an initial state, $X_m \subseteq X$ is the set of
-marked states, and $\Delta: X \times \Sigma \rightarrow X$ is the transition
+An automaton $G$ is a tuple $$G := \left< X,\Sigma,\delta,x_0, X_m \right>,$$
+where $X$ is a set of states, $x_0 \in X$ is an initial state, $X_m \subseteq X$ is the set of
+marked states, and $\delta: X \times \Sigma \rightarrow X$ is the transition
 function.
-We say the a language $L = \mathcal{L}(G)$ is generated or recognized by the
+We say a language $L := \mathcal{L}(G)$ is generated or recognized by the
 automaton $G$. In this paper we assume that for each language there is always a
 correspondent automaton, and vice versa. The marked language $L_m \subseteq L$
-is intended to make a part of the automaton's behaviour distinguishable.
+is intended to make a part of the automaton's behaviour distinguishable in a
+certain context.
 
 Some events of DES can not be observed. To reflect that the set of events
 $\Sigma$ is partitioned into disjointed sets of observable events $\Sigma_o$ and
 not observable events $\Sigma_{ou}$, i.e. $\Sigma = \Sigma_o~\dot{\cup}~
 \Sigma_{ou}$.
 The $M: \Sigma^* \rightarrow \Sigma_o^*$ denotes the natural projection that
-erases unobservable events; $\epsilon$ means the empty string. The
-correspondent inverse projection is $M^{-1}: \Sigma_o \rightarrow 2^\Sigma$. If
-a set of events is partitioned into subsets, $\Sigma = \bigcup_i
+erases unobservable events.
+% ; $\epsilon$ means the empty string. 
+The correspondent inverse projection is $M^{-1}: \Sigma_o^* \rightarrow
+2^{\Sigma^*}$.
+If a set of events is partitioned into subsets, $\Sigma := \bigcup_i
 \Sigma_{i} \mid i \in \mathbb{N}$, the natural projection over the partition
 members is denoted as $M_i: \Sigma_i^* \rightarrow \Sigma_{i,o}^*$.
 
-Let $I = \{1,2,\ldots,n\} \subset  \mathbb{N}$ be an index set. A system is
-defined by a set of automata $\{G_{i \in I}\}$ and a correspondent set
-of languages $\{L_{i \in I}\}$. We use the term \emph{local} in context
-of the automata and languages from these sets. The \emph{global} language of the
-system is defined by the parallel composition of its local languages: $L
-= \parallel_{i \in I} L_i$.
+Let $I := \{1,2,\ldots,n\} \subset  \mathbb{N}$ be an index set. A system is
+defined by a set of automata $\{G_{i \in I}\}$ and a correspondent set of
+languages $\{L_{i \in I}\}$. We use the term \emph{local} in context of the
+automata and languages from these sets. The \emph{global} language of the system
+is defined by the parallel composition \cite{cassandras_introduction_2010} of
+its local languages:
+$L := \parallel_{i \in I} L_i$.
 The natural projection is commonly defined over Kleene closure on event sets.
 We restrict it, for simplicity of notation, to the system's languages as
-follows: $P_i(L) = \{s\mid s\in L_{i}\}$ and $P_i^{-1}(L_{i}) = \{s \mid s \in
-L\}, ~i \in I$.
+follows: $P_i(L) := \{s\mid s\in L_{i}\}$, and $P_i^{-1}(L_{i}) := \{s \mid s
+\in L\}, ~i \in I$.
 
 
 \subsection{Architectures for on-line diagnosis}
-Architectures for on-line diagnosis of three types: centralized, decentralized
-and distributed, can be structured as follows.
+Architectures for on-line diagnosis can be categorized as follows:
+centralized, decentralized and distributed.
 
-\subsubsection{Centralized}
-A DES is presented by one module, and it is assumed that all the observations
-and diagnosis can be performed at one site. The structure is depicted in Figure
-\ref{fig_centralized}. In this architecture the global language is built by the
-parallel composition and then the diagnoser $D$
-\cite{sampath_diagnosability_1995} for the global language is constructed. Upon
+\subsubsection{Centralized approach}
+This architecture refers to a global model (language).If the system is modular,
+then the global language is built by the parallel composition of the local
+languages. All the observations are performed at one site. In this architecture
+only one diagnoser $D$ \cite{sampath_diagnosability_1995} is constructed. Upon
 the current state of the diagnoser a decision on the fault occurrence is made.
+The structure is depicted in Figure \ref{fig_centralized}.
 
-\subsubsection{Decentralized}
-This approach exploits the entire model built from its modules. The several
-local sites performing observations, and only local diagnosers are built. The
-diagnosers do not communicate to each other, but provide necessary information
-(a protocol) to a central decision node. This architecture is depicted in Figure
-\ref{fig_decentralized}.
+\subsubsection{Decentralized approach}
+This approach also exploits the entire model built from its modules, but several
+local sites perform observations using only local diagnosers.
+The diagnosers do not communicate to each other, but provide necessary
+information (a protocol) to a central decision node. This architecture is
+depicted in Figure \ref{fig_decentralized}.
 
-\subsubsection{Distributed}
+\subsubsection{Distributed approach}
 The architecture is depicted in Figure \ref{fig_distributed}.
 The distributed approach does not require to built the entire model of the
 system. The architecture implies that the system has a set of observation spots,
 and each spot observes only one module of the system. A communication among
 observation spots is possible in order to make a decision about a fault
-occurrence. The correspondent verification procedure checks if this architecture
-is possible to apply for the given system. The notion of modular diagnosability
-meets the same architectural implications, and we refer it as to the distributed
-diagnosability when the observation spots do not communicate to each other.
+occurrence. 
+
+The notion of modular diagnosability meets the same architectural implications,
+and we refer to it as to the distributed approach when the amount of information
+the observation spots communicate to each other is equal to zero.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -309,7 +329,7 @@ diagnosability when the observation spots do not communicate to each other.
 
 %\subsection{Faulty and non-faulty languages}
 Diagnosability analysis uses a notion of a faulty language to describe the
-faulty behaviour of discrete-event system. This section discuses design issues
+faulty behaviour of a discrete-event system. This section discuses design issues
 related to representations of the faulty language and focuses on a definition
 of modular diagnosability.
 
@@ -319,31 +339,32 @@ specifications. We refer to this approaches as to \emph{event-based} and
 the event-based approach, whereas the works \cite{zhou_decentralized_2008} and
 \cite{sartini_methodology_2010} are examples of the specification-based one.
 
-In the event-based approach fault events are a special type of event, such that
+In the event-based approach fault events are a special type of event such that
 $\Sigma_{uo}$ can be disjointed into the sets of faults $\Sigma_f$ and
 non-faults $\Sigma_{uo}\backslash \Sigma_f$. A string containing a fault event
 is called \emph{faulty string}. A set of faulty strings is called \emph{faulty
 language}, i.e. formally 
-$$L_f = \{ s \in L \mid \sigma \in s, \sigma \in \Sigma_f\}.$$ 
-By definition, the faulty language is not necessarily prefix-closed in general,
+$$L_f := \{ s \in L \mid \sigma \in s, \sigma \in \Sigma_f\}.$$ 
+By definition, the faulty language is not necessarily prefix-closed,
 $L_f \subseteq \overline{L_f}$. Thus, in the event-based approach the language
 of the system can be partitioned into faulty and non-faulty languages, where the
-\emph{non-faulty language} is defined as $L_{nf} = L \backslash L_f$.
+\emph{non-faulty language} is defined as $L_{nf} := L \backslash L_f$.
 
 In the case of the specification-based approach the faulty specification allows
 us to define undesired behavior when the fault events are not necessarily
-introduced. In this case this behaviour is represented by a marked language $L_f
-= L_m \subseteq L$. 
+introduced. In this case this behaviour can be represented by a marked
+language $L_f := L_m \subseteq L$. Labeling automata's states for the same
+purpose can be considered as an equal technique.
 
 Different types of undesired behaviours (or types of faults) are defined by
 partitioning $\Sigma_f$ into subsets (not necessarily disjoint) or by several
 faulty specifications for the same language. 
 
-Generally, the faulty language defined in the event-based approach can be
-considered as a faulty specification. Thus, we can assume that if fault events
-are defined then faulty specifications can also be defined.
-Consequently, a set of different types of faults requires a correspondent set of
-specifications.
+A faulty language defined in the event-based approach can be simply converted
+into a faulty specification by marking faulty strings, and erasing fault events.
+Then, we can assume that if fault events are defined, then faulty specifications
+can also be defined. Consequently, a set of different types of faults requires a
+correspondent set of specifications.
 Thus, a method suitable for the specification-based approach implies that it can
 be adopted for the event-based approach. In this paper, for the sake of
 unification, we use specification-based approach. For this reason the
@@ -353,12 +374,13 @@ event-based approach are slightly modified with no loss of meaning.
 For the sake of simplicity, in the following we assume that there is only one
 type of fault, and that the language of the system is live.
 
-We define \emph{diagnosability of the fault} as follows:
+We define \emph{diagnosability of a fault} as follows:
 \begin{definition} 
 \label{def:fault_is_diag}
-The fault is diagnosable if there is no two strings
-with the same observation such that one string is faulty and of arbitrary
-cardinality, and second one is non-faulty, i.e. if the following holds true:
+Given a system's language $L$ with a fault defined by the sublanguage $L_f$. The
+fault is diagnosable if there is no two strings in the language $L$ with the
+same observation such that one string is faulty and of arbitrary cardinality,
+and another is non-faulty, i.e. if the following holds true:
 \end{definition}
 \begin{equation}
 \begin{array}{l}
@@ -371,9 +393,9 @@ cardinality, and second one is non-faulty, i.e. if the following holds true:
 \end{array}
 \end{equation}
 
-We define \emph{diagnosability of the language} as follows:
+We define \emph{diagnosability property of a language} as follows:
 \begin{definition}
-The language is diagnosable if its all faults are diagnosable.
+The language is diagnosable if all its faults are diagnosable.
 \end{definition}
 The two above definitions altogether are similar to the Definition 1 in
 \cite{sampath_diagnosability_1995}. We recall the statement in
@@ -383,9 +405,9 @@ local language. If all the local languages are diagnosable then the global
 language is diagnosable. We refer to this property as to a local diagnosability
 property:
 
-\begin{definition}[Local diagnosability] Given the set of local languages
-$\{L_{i \in I}\}$. The global language $L = \parallel L_i$ is
-locally diagnosable if each local language $L_i$ is diagnosable, i.e. if
+\begin{definition}[Local diagnosability] Given the set of languages
+$\{L_{i \in I}\}$. The global language $L := \parallel L_i$ is
+diagnosable locally if each local language $L_i$ is diagnosable, i.e. if
 the following holds true:
 \end{definition}
 \begin{equation}
@@ -399,14 +421,14 @@ the following holds true:
 \end{array}
 \end{equation}
 
-A definition of modular diagnosability extends the definition of local
+The definition of modular diagnosability extends the definition of local
 diagnosability as it takes into account the case when a faulty string locally
 indistinguishable in one module becomes distinguishable due to the
 composition with another module:
 
 \begin{definition}[Modular diagnosability] Given the set of local languages
 $\{L_{i \in I}\}$ and its correspondent sets $\{L_{i,f}\}$ and
-$\{L_{i,nf}\}$. The global language $L = \parallel L_i$ is \emph{modularly
+$\{L_{i,nf}\}$. The global language $L := \parallel L_i$ is \emph{modularly
 diagnosable} with respect to
 $M_i: \Sigma^* \rightarrow \Sigma_{i,o}^*$ 
 if the following holds true:
@@ -434,10 +456,13 @@ for the problem.}, i.e.
 	(\exists n \in \mathbb{N})
 	(|t| \geq n)
 	\\
-	\left[ M_i(st) \cap M_i(L_{i,nf}) = \emptyset \right]
-	\Rightarrow 
+	\left[
+	\left( M_i(st) \cap M_i(L_{i,nf}) = \emptyset \right)
+	\Rightarrow \right.
 	\\ 
-	\left[ M_i(P_i^{-1}(st)) \cap M_i(P_i^{-1}(L_{i,nf})) = \emptyset \right].
+	\left.
+	\left( M_i(P_i^{-1}(st)) \cap M_i(P_i^{-1}(L_{i,nf})) = \emptyset \right)
+	\right].
 \end{array}
 \end{equation}
 
@@ -445,7 +470,7 @@ for the problem.}, i.e.
 Recall the Definition \ref{def:fault_is_diag} of the diagnosable fault. If a
 module is not diagnosable locally then exist at least two strings in its
 language, one is faulty and one is not, with the same observation of arbitrary
-length, i.e. the strings are \emph{not distinguishable}. This
+length, i.e. the strings are \emph{not distinguishable}. The
 indistinguishability can disappear if and only if:
 $a)$ at least one string can be not in its language due to concurrency with other
 module, and then the strings would be distinguishable locally - the verification
@@ -453,9 +478,9 @@ of the modular diagnosability property is devoted to find if this is the case;
 $b)$ indistinguishability is broken globally by interleaving sequences of the
 module's events with observable events of other modules. The later case is
 expressed in the following conjecture:
-\begin{conjecture} Given two modules with languages $L_1$ and $L_2$, and the
-global language of the system $L = L_1 \parallel L_2$. Suppose there is only one
-faulty string $s \in L_1$ such that it is not distinguishable from at least one
+\begin{conjecture} Given a system of two modules with languages $L_1$ and $L_2$,
+and the global language $L := L_1 \parallel L_2$. Suppose there is only
+one faulty string $s \in L_1$ such that it is not distinguishable from at least one
 string of $L_1\backslash s$. Thus, $L_1$ is not locally diagnosable. Suppose the
 system is not modular diagnosable. Then the global language $L$ is diagnosable
 only if all the strings $t \in P_1^{-1}(s)$ change their observation due to 
@@ -480,17 +505,17 @@ provide a formal description of the problem.
 
 Our goal is to have the system modularly diagnosable. If the initial modularity
 does not satisfy the property of modular diagnosability then we assume that the
-set of modules can be partitioned such that the all modules in each
+set of modules can be partitioned such that all the modules in each
 element of the partition can be considered as a \emph{virtual module}, and the
 system with the new modularity satisfies the property of modular diagnosability.
 
 \begin{definition}[Diagnosability of virtual modules] 
 Let $I = \{1,2,\ldots,n\} \subset  \mathbb{N}$ be an index set, and $J$ be a
 partition of $I$. Given the set of local languages $\{L_{i \in I}\}$ and its
-corresponded subsets $\{L_{i,f}\}$ and $\{L_{i,nf}\}$. The global language $L =
+corresponded subsets $\{L_{i,f}\}$ and $\{L_{i,nf}\}$. The global language $L :=
 \parallel L_i$ is modularly diagnosable with respect to
 $M_j: \Sigma^* \rightarrow \Sigma_{j,o}^* 
-\mid j \in J, ~\Sigma_{j,o} =\bigcup_{i \in j} \Sigma_{i,o}$ 
+\mid j \in J, ~\Sigma_{j,o} :=\bigcup_{i \in j} \Sigma_{i,o}$ 
 if the following holds true:
 \end{definition}
 \begin{equation}
@@ -504,8 +529,8 @@ if the following holds true:
 \end{array}
 \end{equation}
 
-If $\forall j \in J, L_{j} = \parallel L_{i \in j}$ then, by definition, $L =
-\parallel L_{i \in I} = \parallel L_{j \in J}$, and all the statements related
+If $\forall j \in J, L_{j} := \parallel L_{i \in j}$ then, by definition, $L :=
+\parallel L_{i \in I} := \parallel L_{j \in J}$, and all the statements related
 to the modular diagnosability  property can be applied for the diagnosability by
 virtual modules.
 
@@ -522,8 +547,8 @@ potentially can change diagnosability is required.
 
 In the sequel, for the sake of simplicity, we suppose that the system consists
 only of two modules with the correspondent languages $L_1$ and $L_2$. The
-language of the system is $L = L_1 \parallel L_2$. Suppose that only one module
-has a faulty behaviour: $L_1 = L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
+language of the system is $L := L_1 \parallel L_2$. Suppose that only one module
+has a faulty behaviour: $L_1 := L_{1,f} ~\dot{\cup}~ L_{1,nf}$.
 Suppose that $L_1$ is not diagnosable locally, but $L$ is diagnosable.
 
 Firstly, we define the notion of observation changing of a string in a global
@@ -597,7 +622,7 @@ We call the subset of stings $\{t \in L_2\}$ satisfying condition
 $s \in L_1$.
 
 \begin{definition} Given two languages $L_1$ and $L_2$. We say that a string $s
-\in L_{1}$ is distinguished from the all other local strings $L_1\backslash s$
+\in L_{1}$ is distinguished from all the other local strings $L_1\backslash s$
 in the language $L$ if the following holds true:
 \end{definition}
 \begin{equation}
@@ -721,7 +746,7 @@ accepting/.style={double distance=1.5pt, outer sep=0.75pt+\pgflinewidth}
 As it was discussed in the Section \ref{sec:Diagnosability},
 indistinguishability can be changed either by blocking the string in the local
 language due to concurrency, or by interleaving with observable events from
-other languages. Under assumption that the all strings are not affected by
+other languages. Under assumption that all the strings are not affected by
 concurrency, i.e. $L_1 = P_1(L)$ we can deduce, that the conditions of Lemma
 \ref{lem:distinguished} are also necessary for changing distinguishability. 
 
@@ -748,7 +773,7 @@ that faulty and non-faulty languages are disjoint, but they may have common
 prefixes. This common sublanguage is defined as $\overline{L_{f}} \cap (L
 \backslash \overline{L_{f}})$. Changing observability of this sublanguage has no
 effect for diagnosability, and we can exclude it from a verification procedure.
-Thus, the non-faulty sublanguage disjoint to the all prefixes of the faulty
+Thus, the non-faulty sublanguage disjoint to all the prefixes of the faulty
 language is defined as $L \backslash \overline{L_f}$, and the set of all
 prefixes of the faulty language disjoint to the above non-faulty sublanguage and
 to the common prefixes is defined as $\overline{L_f} \backslash (\overline{L_f}
@@ -757,7 +782,7 @@ to the common prefixes is defined as $\overline{L_f} \backslash (\overline{L_f}
 \begin{lemma}
 \label{lem:diagnosable}
 Given $L_1, L_2$, $L_{1,f} \subseteq L_1$ and $L_{1,nf} \subseteq L_1$. A
-language $L = L_1 \parallel L_2$ is diagnosable if the sublanguages
+language $L := L_1 \parallel L_2$ is diagnosable if the sublanguages
 $\overline{L_{1,f}} \backslash (\overline{L_{1,f}} \cap (L_i \backslash
 \overline{L_{1,f}}))$ and $L_{1} \backslash \overline{L_{1,f}}$ have
 distinguished observable supports in $L_2$.
@@ -1021,17 +1046,17 @@ suggests to combine the existing modules of the system into virtual modules in
 a way that the system with the new modularity is modular diagnosable.
 
 We introduced a structural analysis of the system's modules, which allows
-to verify if one module may change its observation by composition with others,
-and if another module can change the observation of other modules. We defined
+to verify if a module may change its observation by composition with others,
+and if a module can change the observation of other modules. We defined
 correspondent sufficient and necessary conditions for the modules' languages. If
 the languages satisfy those conditions then one can state that the system can
 be made modular diagnosable by creating virtual modules.
 The suggested verification procedure has linear complexity with respect to the
 number of states of a module.
 
-We leave for the future work the problem of defining criteria of how to select
-the best candidates for creating the virtual modules, what the optimal
-partition of the set of the modules can be, and generalization of the problem.
+We are actually working on the problem of defining criteria of how to select the
+best candidates for creating the virtual modules, what the optimal partition of
+the set of the modules can be, and generalization of the problem.
 
 % This command serves to balance the column lengths on the last page of the
 % document manually. It shortens the textheight of the last page by a suitable
