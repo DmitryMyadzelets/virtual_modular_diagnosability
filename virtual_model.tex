@@ -109,7 +109,7 @@ consider different architectures of DES and differ with respect to some
 implications they take into account, i.e. either they require an entire model of
 the system or not, what information is presented to each observation spot if any,
 and etc. In this paper we use a classification as in \cite{su_global_2005} where
-the diagnosability approach can be \emph{centralized},
+a diagnosability approach can be \emph{centralized},
 \emph{decentralized} or \emph{distributed}. The centralized approach is
 presented in \cite{sampath_diagnosability_1995} and, with improved complexity,
 in \cite{jiang_polynomial_2001} and \cite{yoo_polynomial-time_2002}.
@@ -134,10 +134,10 @@ Thus, we assume that preserving the systems' modularity as close to the initial
 structure as possible is required. We investigate the case when the system is
 not modular diagnosable initially, but the modules of the system can be composed
 into new \emph{virtual} modules in order to force the modular diagnosability
-property. We study how to chose the system's modules for the composition. For
+property. We study how to choose the system's modules for the composition. For
 this goal a structural analysis of the system is introduced. 
 
-We refer to \cite{ye_optimized_2010} as to one of the resent works addressing
+We refer to \cite{ye_optimized_2010} as to one of the recent works addressing
 diagnosability problem for distributed approach. The work introduces a notion of
 \emph{regional diagnosability} exploiting a subset of the modules. The authors
 do not address modular diagnosability property, however, we may consider this
@@ -150,8 +150,8 @@ necessary notation and describes the diagnosability problem. Section
 system. In Section \ref{sec:Proposal} we focus on diagnosability by virtual
 modules, and analysis of system's module structure with respect to the faulty
 behaviour. The Section \ref{sec:Example} shows an example. The last Section
-\ref{sec:Conclusion} concludes the current results and discuss possible
-directions for further research.
+\ref{sec:Conclusion} concludes the current results and discusses possible
+directions for the further research.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -312,8 +312,8 @@ The structure is depicted in Figure \ref{fig_centralized}.
 \subsubsection{Decentralized approach}
 This approach also exploits the entire model built from its modules, but several
 local sites perform observations using only local diagnosers.
-The diagnosers do not communicate to each other, but provide necessary
-information (a protocol) to a central decision node. This architecture is
+The diagnosers do not communicate to each other, but they provide necessary
+information (via a protocol) to a central decision node. This architecture is
 depicted in Figure \ref{fig_decentralized}.
 
 \subsubsection{Distributed approach}
@@ -475,10 +475,10 @@ for the problem.}, i.e.
 
 Recall the Definition \ref{def:fault_is_diag} of the diagnosable fault. If a
 module is not diagnosable locally then exist at least two strings in its
-language, one is faulty and one is not, with the same observation of arbitrary
-length, i.e. the strings are \emph{not distinguishable}. The
+language, one is faulty and the other one is not, with the same observation of
+arbitrary length, i.e. the strings are \emph{not distinguishable}. The
 indistinguishability can disappear if and only if:
-$a)$ at least one string can be not in its language due to concurrency with other
+$a)$ at least one string is not in its language due to concurrency with other
 module, and then the strings would be distinguishable locally - the verification
 of the modular diagnosability property is devoted to find if this is the case;
 $b)$ indistinguishability is broken globally by interleaving sequences of the
@@ -516,7 +516,7 @@ element of the partition can be considered as a \emph{virtual module}, and the
 system with the new modularity satisfies the property of modular diagnosability.
 
 \begin{definition}[Diagnosability of virtual modules] 
-Let $I = \{1,2,\ldots,n\} \subset  \mathbb{N}$ be an index set, and $J$ be a
+Let $I := \{1,2,\ldots,n\} \subset  \mathbb{N}$ be an index set, and $J$ be a
 partition of $I$. Given the set of local languages $\{L_{i \in I}\}$ and its
 corresponded subsets $\{L_{i,f}\}$ and $\{L_{i,nf}\}$. The global language $L :=
 \parallel L_i$ is modularly diagnosable with respect to
@@ -555,7 +555,7 @@ second approach that can significantly decrease the complexity by selecting only
 the modules which can probably change diagnosability and, thus, check only the
 partitions made of such modules. For this purpose a procedure to check if an
 arbitrary module potentially can change diagnosability is required. Then, we can
-have a heuristic procedure to chose which module to pick to verify
+have a heuristic procedure to choose which module to pick to verify
 diagnosability.
 
 In the sequel, for the sake of simplicity, we suppose that the system consists
